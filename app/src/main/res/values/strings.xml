@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Project5</string>
+    <string name="order_pizza">Order Pizza</string>
+    <string name="see_your_orders">See your orders</string>
 </resources>
