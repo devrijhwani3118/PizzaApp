@@ -5,15 +5,70 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#490DB4"
+    android:backgroundTint="#7E7A6AD5"
     tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:fontFamily="@font/biryani_bold"
+        android:text="RU PIZZARIA!"
+        android:textColor="#33116A"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/biryani_bold"
+        android:text="Cart"
+        android:textColor="#33116A"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.474"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.754" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/biryani_bold"
+        android:text="Order Here!"
+        android:textColor="#33116A"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.364" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="204dp"
+        android:layout_height="184dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/currentordermain"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="434dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="209dp"
+        android:layout_height="174dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ordersplacedmain"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="116dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
