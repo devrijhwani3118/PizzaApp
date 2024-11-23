@@ -2,4 +2,6 @@
     <string name="app_name">Project5</string>
     <string name="order_pizza">Order Pizza</string>
     <string name="see_your_orders">See your orders</string>
+    <string name="cart">Cart</string>
+    <string name="ru_pizzaria">RU PIZZARIA!</string>
 </resources>
