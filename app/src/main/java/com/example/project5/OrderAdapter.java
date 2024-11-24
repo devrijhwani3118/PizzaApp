@@ -30,7 +30,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         OrderView order = orders.get(position);
         holder.nameTextView.setText(order.getName());
         holder.quantityTextView.setText("Qty: " + order.getQuantity());
-        holder.priceTextView.setText("$" + order.getPrice());
+        holder.subtotalTextView.setText("$" + order.getSubtotal());
+        holder.totalTextView.setText("$"+order.getTotal());
     }
 
     @Override
@@ -41,13 +42,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     static class OrderViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         TextView quantityTextView;
-        TextView priceTextView;
+        TextView subtotalTextView;
+
+        TextView totalTextView;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.order_name);
             quantityTextView = itemView.findViewById(R.id.order_details);
-            priceTextView = itemView.findViewById(R.id.order_price);
+            subtotalTextView = itemView.findViewById(R.id.subtotal);
+            totalTextView = itemView.findViewById((R.id.total));
         }
     }
 }
