@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/biryani_bold"
-        android:text="Order Here!"
+        android:text="@string/order_here"
         android:textColor="#33116A"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

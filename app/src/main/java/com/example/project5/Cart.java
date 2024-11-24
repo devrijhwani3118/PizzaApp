@@ -1,27 +1,59 @@
 package com.example.project5;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageButton;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cart extends AppCompatActivity {
 
+    private RecyclerView currentOrdersRecyclerView;
+    private RecyclerView storeOrdersRecyclerView;
+    private OrderAdapter currentOrdersAdapter;
+    private OrderAdapter storeOrdersAdapter;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.cart);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
 
+        // Initialize RecyclerViews
+        currentOrdersRecyclerView = findViewById(R.id.currentOrdersRecyclerView);
+        storeOrdersRecyclerView = findViewById(R.id.storeOrdersRecyclerView);
+
+        // Set Layout Managers
+        currentOrdersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        storeOrdersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Initialize Data
+        List<Order> currentOrders = getCurrentOrders();
+        List<Order> storeOrders = getStoreOrders();
+
+        // Initialize Adapters
+        currentOrdersAdapter = new OrderAdapter(currentOrders);
+        storeOrdersAdapter = new OrderAdapter(storeOrders);
+
+        // Set Adapters
+        currentOrdersRecyclerView.setAdapter(currentOrdersAdapter);
+        storeOrdersRecyclerView.setAdapter(storeOrdersAdapter);
     }
 
+    private List<Order> getCurrentOrders() {
+        // Mock data for current orders
+        List<Order> orders = new ArrayList<>();
+        //orders.add(new Order("Pizza Margherita", 1, 12.99));
+        //orders.add(new Order("Pepperoni Pizza", 2, 15.99));
+        return orders;
+    }
+
+    private List<Order> getStoreOrders() {
+        // Mock data for store orders
+        List<Order> orders = new ArrayList<>();
+        //orders.add(new Order("Veggie Pizza", 1, 10.99));
+        //orders.add(new Order("BBQ Chicken Pizza", 3, 18.99));
+        return orders;
+    }
 }
