@@ -11,9 +11,9 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
-    private List<Order> orders;
+    private List<OrderView> orders;
 
-    public OrderAdapter(List<Order> orders) {
+    public OrderAdapter(List<OrderView> orders) {
         this.orders = orders;
     }
 
@@ -27,7 +27,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order order = orders.get(position);
+        OrderView order = orders.get(position);
         holder.nameTextView.setText(order.getName());
         holder.quantityTextView.setText("Qty: " + order.getQuantity());
         holder.priceTextView.setText("$" + order.getPrice());

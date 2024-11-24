@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".OrderPage">
 
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="829dp" />
+
     <CheckBox
         android:id="@+id/checkBox12"
         android:layout_width="wrap_content"
@@ -206,14 +214,30 @@
         android:layout_height="wrap_content"
         android:text="CheckBox"
         tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="765dp" />
+        tools:layout_editor_absoluteY="742dp" />
 
     <CheckBox
         android:id="@+id/checkBox14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CheckBox"
-        tools:layout_editor_absoluteX="220dp"
-        tools:layout_editor_absoluteY="758dp" />
+        tools:layout_editor_absoluteX="230dp"
+        tools:layout_editor_absoluteY="742dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="152dp"
+        android:layout_height="169dp"
+        tools:layout_editor_absoluteX="249dp"
+        tools:layout_editor_absoluteY="143dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="273dp"
+        tools:layout_editor_absoluteY="827dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

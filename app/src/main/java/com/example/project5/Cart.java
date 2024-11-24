@@ -29,8 +29,8 @@ public class Cart extends AppCompatActivity {
         storeOrdersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize Data
-        List<Order> currentOrders = getCurrentOrders();
-        List<Order> storeOrders = getStoreOrders();
+        List<OrderView> currentOrders = getCurrentOrders();
+        List<OrderView> storeOrders = getStoreOrders();
 
         // Initialize Adapters
         currentOrdersAdapter = new OrderAdapter(currentOrders);
@@ -41,17 +41,17 @@ public class Cart extends AppCompatActivity {
         storeOrdersRecyclerView.setAdapter(storeOrdersAdapter);
     }
 
-    private List<Order> getCurrentOrders() {
+    private List<OrderView> getCurrentOrders() {
         // Mock data for current orders
-        List<Order> orders = new ArrayList<>();
+        List<OrderView> orders = new ArrayList<>();
         //orders.add(new Order("Pizza Margherita", 1, 12.99));
         //orders.add(new Order("Pepperoni Pizza", 2, 15.99));
         return orders;
     }
 
-    private List<Order> getStoreOrders() {
+    private List<OrderView> getStoreOrders() {
         // Mock data for store orders
-        List<Order> orders = new ArrayList<>();
+        List<OrderView> orders = new ArrayList<>();
         //orders.add(new Order("Veggie Pizza", 1, 10.99));
         //orders.add(new Order("BBQ Chicken Pizza", 3, 18.99));
         return orders;
