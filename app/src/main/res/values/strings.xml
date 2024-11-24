@@ -10,4 +10,7 @@
     <string name="details_about_the_order">Details about the order</string>
     <string name="_0_00">$0.00</string>
     <string name="order_name">Order Name</string>
+    <string name="substotal">substotal</string>
+    <string name="total">Total</string>
+    <string name="subtotal">Subtotal</string>
 </resources>
