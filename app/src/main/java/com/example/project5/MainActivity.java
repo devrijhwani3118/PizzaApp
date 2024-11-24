@@ -23,6 +23,15 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        ImageButton imageButton1 = findViewById(R.id.imageButton1);
+
+        // Set OnClickListener
+        imageButton1.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, OrderPage.class);
+            startActivity(intent);
+        });
+
+
         // Find the ImageButton
         ImageButton imageButton2 = findViewById(R.id.imageButton2);
 
