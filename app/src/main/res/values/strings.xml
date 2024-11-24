@@ -13,4 +13,6 @@
     <string name="substotal">substotal</string>
     <string name="total">Total</string>
     <string name="subtotal">Subtotal</string>
+    <string name="textview">TextView</string>
+    <string name="checkbox">CheckBox</string>
 </resources>
