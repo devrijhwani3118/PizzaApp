@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cart extends AppCompatActivity {
+public class CurrentOrder extends AppCompatActivity {
 
     private RecyclerView currentOrdersRecyclerView;
     private RecyclerView storeOrdersRecyclerView;
