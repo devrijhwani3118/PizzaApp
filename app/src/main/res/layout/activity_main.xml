@@ -9,78 +9,65 @@
     android:backgroundTint="#7E7A6AD5"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/orderHereButton"
+        android:layout_width="240dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="26dp"
+        android:text="Order Here!"
+        app:layout_constraintBottom_toTopOf="@+id/currentOrdersButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <Button
+        android:id="@+id/storeOrdersButton"
+        android:layout_width="235dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:text="Store Orders"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentOrdersButton" />
+
+    <Button
+        android:id="@+id/currentOrdersButton"
+        android:layout_width="235dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
+        android:text="Current Orders"
+        app:layout_constraintBottom_toTopOf="@+id/storeOrdersButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderHereButton" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/biryani_bold"
         android:text="@string/ru_pizzaria"
         android:textColor="#33116A"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.038" />
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/biryani_bold"
-        android:text="@string/cart"
-        android:textColor="#33116A"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="331dp"
+        android:layout_height="405dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="53dp"
+        app:layout_constraintBottom_toTopOf="@+id/orderHereButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.868" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/biryani_bold"
-        android:text="@string/order_here"
-        android:textColor="#33116A"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.417" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="227dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="145dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton1"
-        app:srcCompat="@drawable/currentordermain"
-        android:contentDescription="@string/see_your_orders"
-        />
-
-    <ImageButton
-        android:id="@+id/imageButton1"
-        android:layout_width="223dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="167dp"
-        android:contentDescription="@string/order_pizza"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:srcCompat="@drawable/ordersplacedmain" />
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
