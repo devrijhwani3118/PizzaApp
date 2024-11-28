@@ -57,17 +57,20 @@ public class CurrentOrder extends AppCompatActivity {
         // Fetch data from PizzaSingleton
         List<Pizza> pizzas = PizzaSingleton.getPizzas();
         List<String> pizzaStrings = PizzaSingleton.getPizzasString();
+        List<Integer>orderNumberList = PizzaSingleton.getOrderNumberList();
 
         // Iterate through the pizzas and create OrderView objects
         for (int i = 0; i < pizzas.size(); i++) {
             Pizza pizza = pizzas.get(i);
+            String pizzaString = pizzaStrings.get(i);
             String name = pizza.toString(); // Assuming `Pizza` has a getName() method
 //            int quantity = pizza.getQuantity(); // Assuming `Pizza` has a getQuantity() method
             double subtotal = pizza.price(); // Assuming `Pizza` has a getSubtotal() method
+            int orderNum = orderNumberList.get(i);
 //            double total = pizza.getTotal(); // Assuming `Pizza` has a getTotal() method
 
             // Create an OrderView object
-            orders.add(new OrderView(name, subtotal));
+            orders.add(new OrderView(name, subtotal, pizzaString, orderNum));
         }
 
         return orders;
