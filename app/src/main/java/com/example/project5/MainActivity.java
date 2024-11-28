@@ -46,10 +46,12 @@ public class MainActivity extends AppCompatActivity {
         Button button3  = findViewById(R.id.storeOrdersButton);
 
         // Set OnClickListener
-        button3.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, StoreOrders.class);
+        Button currentOrderButton = findViewById(R.id.currentOrdersButton);
+        currentOrderButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CurrentOrder.class);
             startActivity(intent);
         });
+
 
 
 

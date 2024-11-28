@@ -60,6 +60,7 @@ public class CurrentOrder extends AppCompatActivity {
         List<Integer>orderNumberList = PizzaSingleton.getOrderNumberList();
 
         // Iterate through the pizzas and create OrderView objects
+        if(pizzas==null) return null;
         for (int i = 0; i < pizzas.size(); i++) {
             Pizza pizza = pizzas.get(i);
             String pizzaString = pizzaStrings.get(i);
