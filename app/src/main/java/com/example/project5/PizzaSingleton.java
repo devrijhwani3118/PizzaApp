@@ -14,11 +14,21 @@ import java.util.List;
 public class PizzaSingleton {
     private static PizzaSingleton instance;
 
-    private static ArrayList<String> pizzasString;
-    private static ArrayList<Pizza> pizzas;
-    private static ArrayList<String> orderList;
-    private static ArrayList<Integer> orderNumberList;
+    private static ArrayList<String> pizzasString;//used to populate the listview of CurrentOrder | is the string format
+    //for the order
+    private static ArrayList<Pizza> pizzas;//is the pizza format of the order same as pizzasString | for CurrentOrder as well
+    private static ArrayList<String> orderList;//total order list / store orders
+    private static ArrayList<Integer> orderNumberList; // the number of the order
     private static ArrayList<Order> orders;
+    private static int orderNumber;
+
+    public static int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public static void setOrderNumber(int orderNumber) {
+        PizzaSingleton.orderNumber = orderNumber;
+    }
 
     private PizzaSingleton() {
         pizzasString = new ArrayList<>();
@@ -79,4 +89,10 @@ public class PizzaSingleton {
     public static void setOrders(ArrayList<Order> orders) {
         PizzaSingleton.orders = orders;
     }
+
+//    public void addPizza(Pizza pizza) {
+//        pizzas.add(pizza);
+//        pizzasString.add(pizza.toString()); // Assuming Pizza has a meaningful `toString` implementation
+//    }
+
 }

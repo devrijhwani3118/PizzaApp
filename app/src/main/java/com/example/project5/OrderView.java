@@ -2,37 +2,35 @@ package com.example.project5;
 
 public class OrderView {
     private String name;
-    private int quantity;
+
     private double subtotal;
 
     private double total;
 
-    public OrderView(String name, int quantity, double subtotal, double total) {
+    public OrderView(String name, double subtotal) {
         this.name = name;
-        this.quantity = quantity;
         this.subtotal = subtotal;
-        this.total=total;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
+//    public int getQuantity() {
+//        return quantity;
+//    }
 
     public double getSubtotal() {
         return subtotal;
     }
 
     public double getTotal() {
-        return total;
+        return subtotal;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+//    public void setQuantity(int quantity) {
+//        this.quantity = quantity;
+//    }
 
     public void setName(String name) {
         this.name = name;

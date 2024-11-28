@@ -72,8 +72,10 @@
         android:layout_marginBottom="72dp"
         app:layout_constraintBottom_toBottomOf="@+id/crustTextView"
         app:layout_constraintEnd_toEndOf="@+id/crustTextView"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/crustWordTextView"
         app:layout_constraintTop_toTopOf="@+id/typepizzaChoiceSpinner"
+        app:layout_constraintVertical_bias="1.0"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
