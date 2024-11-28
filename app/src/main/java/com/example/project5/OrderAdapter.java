@@ -40,10 +40,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.total.setText(String.format("Total: $%.2f", order.getSubtotal() * 1.06625));
 
         holder.cancelButton.setOnClickListener(v -> {
-            if (onCancelOrderListener != null) {
-                onCancelOrderListener.onCancelOrder(position);
-            }
-        });
+                    String selectedPizza = order.getPizzaStringDescription();
+                    if (onCancelOrderListener != null) {
+                        onCancelOrderListener.onCancelOrder(position);
+                        for (int i = 0; i < PizzaSingleton.getPizzasString().size(); i++) {
+                            if (PizzaSingleton.getPizzasString().get(i).equals(selectedPizza)) {
+                                PizzaSingleton.getPizzasString().remove(i);
+                                PizzaSingleton.getPizzas().remove(i);
+//                                order.recalculateTotals();
+                                return;
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
