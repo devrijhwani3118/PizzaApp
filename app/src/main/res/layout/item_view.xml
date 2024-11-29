@@ -59,7 +59,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/subtotal3"
+        android:id="@+id/tax2"
         android:layout_width="45dp"
         android:layout_height="20dp"
         android:layout_marginTop="32dp"
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/subtotal4"
+        android:id="@+id/total2"
         android:layout_width="48dp"
         android:layout_height="23dp"
         android:layout_marginTop="56dp"

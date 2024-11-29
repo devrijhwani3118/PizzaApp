@@ -1,7 +1,9 @@
 package com.example.project5;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ public class CurrentOrder extends AppCompatActivity {
 
     private RecyclerView currentOrdersRecyclerView;
     private OrderAdapter currentOrdersAdapter;
+    private int orderNumber;
 
     private List<OrderView> currentOrders; // Store current orders locally
     private final int ZERO = 0;
@@ -35,6 +38,11 @@ public class CurrentOrder extends AppCompatActivity {
         // Initialize Data
         currentOrders = getCurrentOrders();
         currentOrdersAdapter = new OrderAdapter(currentOrders);
+
+        if(PizzaSingleton.getOrderNumber()==0) PizzaSingleton.setOrderNumber(1);
+        orderNumber=PizzaSingleton.getOrderNumber();
+        TextView orderNumberText = findViewById(R.id.order_number_int);
+        orderNumberText.setText(String.valueOf(orderNumber));
 
         // Set Adapter
         currentOrdersRecyclerView.setAdapter(currentOrdersAdapter);

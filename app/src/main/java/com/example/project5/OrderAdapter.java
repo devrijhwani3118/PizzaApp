@@ -110,9 +110,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             super(itemView);
 //            orderName = itemView.findViewById(R.id.order_name);
             orderDetails = itemView.findViewById(R.id.order_details);
-            subtotal = itemView.findViewById(R.id.subtotal);
-            tax = itemView.findViewById(R.id.tax);
-            total = itemView.findViewById(R.id.total);
+            subtotal = itemView.findViewById(R.id.subtotal2);
+            tax = itemView.findViewById(R.id.tax2);
+            total = itemView.findViewById(R.id.total2);
             cancelButton = itemView.findViewById(R.id.cancel_button);
             addButton = itemView.findViewById(R.id.add_to_order_button);
         }
