@@ -1,6 +1,9 @@
 package com.example.project5;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,44 +14,34 @@ import java.util.List;
 public class CurrentOrder extends AppCompatActivity {
 
     private RecyclerView currentOrdersRecyclerView;
-    private RecyclerView storeOrdersRecyclerView;
     private OrderAdapter currentOrdersAdapter;
 
-    private List<String> pizzaStringList = PizzaSingleton.getPizzasString();
-    private List<Pizza> pizzas = PizzaSingleton.getPizzas();
-    private final int ZERO=0;
-    private double subtotalPizzas=ZERO;
-    private double salesTaxPizzas=ZERO;
-    private double totalCostPizzas=ZERO;
-    private final int ONE=1;
-
-    private final double TAX=0.06625;
-
-
-
-
-
+    private List<OrderView> currentOrders; // Store current orders locally
+    private final int ZERO = 0;
+    private double subtotalPizzas = ZERO;
+    private double salesTaxPizzas = ZERO;
+    private double totalCostPizzas = ZERO;
+    private final double TAX = 0.06625;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_order_page);
 
-        // Initialize RecyclerViews
+        // Initialize RecyclerView
         currentOrdersRecyclerView = findViewById(R.id.currentOrdersRecyclerView);
-
-
-        // Set Layout Managers
         currentOrdersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize Data
-        List<OrderView> currentOrders = getCurrentOrders();
-
-        // Initialize Adapters
+        currentOrders = getCurrentOrders();
         currentOrdersAdapter = new OrderAdapter(currentOrders);
 
-        // Set Adapters
+        // Set Adapter
         currentOrdersRecyclerView.setAdapter(currentOrdersAdapter);
+
+        // Handle "Add to Order" button click
+        Button addToOrderButton = findViewById(R.id.add_to_order_button);
+        addToOrderButton.setOnClickListener(v -> addAllItemsToOrder());
     }
 
     private List<OrderView> getCurrentOrders() {
@@ -57,74 +50,62 @@ public class CurrentOrder extends AppCompatActivity {
         // Fetch data from PizzaSingleton
         List<Pizza> pizzas = PizzaSingleton.getPizzas();
         List<String> pizzaStrings = PizzaSingleton.getPizzasString();
-        List<Integer>orderNumberList = PizzaSingleton.getOrderNumberList();
+        List<Integer> orderNumberList = PizzaSingleton.getOrderNumberList();
 
-        // Iterate through the pizzas and create OrderView objects
-        if(pizzas==null) return null;
+        if (pizzas == null || pizzaStrings == null) return orders;
+
+        // Create OrderView objects
         for (int i = 0; i < pizzas.size(); i++) {
             Pizza pizza = pizzas.get(i);
             String pizzaString = pizzaStrings.get(i);
-            String name = pizza.toString(); // Assuming `Pizza` has a getName() method
-//            int quantity = pizza.getQuantity(); // Assuming `Pizza` has a getQuantity() method
-            double subtotal = pizza.price(); // Assuming `Pizza` has a getSubtotal() method
             int orderNum = orderNumberList.get(i);
-//            double total = pizza.getTotal(); // Assuming `Pizza` has a getTotal() method
 
-            // Create an OrderView object
-            orders.add(new OrderView(name, subtotal, pizzaString, orderNum));
+            orders.add(new OrderView(pizza.toString(), pizza.price(), pizzaString, orderNum));
         }
 
         return orders;
     }
 
-    public void subTotal() {
-        for (int i = 0; i < PizzaSingleton.getPizzas().size(); i++) {
-            subtotalPizzas += PizzaSingleton.getPizzas().get(i).price();
-        }
-    }
-
-    public void salesTax() {
-        salesTaxPizzas = subtotalPizzas * TAX;
-    }
-
-
-
-    public void totalCost() {
-        totalCostPizzas = subtotalPizzas + salesTaxPizzas;
-    }
-
-    public void placeOrderOnButtonClicked(){
-        if(PizzaSingleton.getPizzasString().isEmpty()){
-//            showAlert("Error", "Please add a pizza to place an order.");
+    private void addAllItemsToOrder() {
+        if (currentOrders.isEmpty()) {
+            Toast.makeText(this, "No items to add!", Toast.LENGTH_SHORT).show();
             return;
         }
-        String order = "";
-        for(int i=0; i<PizzaSingleton.getPizzasString().size(); i++){
-            order+=PizzaSingleton.getPizzasString().get(i)+"\n";
+
+        // Add items to PizzaSingleton
+        for (OrderView orderView : currentOrders) {
+            if (!PizzaSingleton.getPizzasString().contains(orderView.getPizzaStringDescription())) {
+                PizzaSingleton.getPizzasString().add(orderView.getPizzaStringDescription());
+                PizzaSingleton.getPizzas().add(orderView.getPizza());
+            }
         }
-        PizzaSingleton.getOrderList().add(order);
-        PizzaSingleton.setOrderNumber(PizzaSingleton.getOrderNumber()+1);;
+
+        // Update order list and order number
+        PizzaSingleton.getOrderList().add(currentOrders.toString());
+        PizzaSingleton.setOrderNumber(PizzaSingleton.getOrderNumber() + 1);
         PizzaSingleton.getOrderNumberList().add(PizzaSingleton.getOrderNumber());
-        PizzaSingleton.getPizzas().clear();
-        PizzaSingleton.getPizzasString().clear();
+
+        // Clear current orders
+        currentOrders.clear();
+        currentOrdersAdapter.notifyDataSetChanged();
+
+        // Show confirmation
+        Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_SHORT).show();
+        PizzaSingleton.setPizzasString(new ArrayList<String>());
+        PizzaSingleton.setPizzas(new ArrayList<Pizza>());
+        // Recalculate totals
         recalculateTotals();
-        int orderNum=PizzaSingleton.getOrderNumber()+1;
-//        orderNumberField.setText(orderNum+"");
     }
 
     private void recalculateTotals() {
         subtotalPizzas = ZERO;
         salesTaxPizzas = ZERO;
         totalCostPizzas = ZERO;
-        for (int i = 0; i < PizzaSingleton.getPizzas().size(); i++) {
-            subtotalPizzas += PizzaSingleton.getPizzas().get(i).price();
+
+        for (Pizza pizza : PizzaSingleton.getPizzas()) {
+            subtotalPizzas += pizza.price();
         }
         salesTaxPizzas = subtotalPizzas * TAX;
         totalCostPizzas = subtotalPizzas + salesTaxPizzas;
-//        subtotalField.setText(String.format("%.2f", subtotalPizzas));
-//        salesTaxField.setText(String.format("%.2f", salesTaxPizzas));
-//        totalCostField
     }
-
-
 }
