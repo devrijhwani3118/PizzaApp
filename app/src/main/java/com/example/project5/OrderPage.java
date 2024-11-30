@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -52,16 +51,18 @@ public class OrderPage extends AppCompatActivity {
     private TextView crustTextView;
     private TextView pizzaPriceTextView;
     private ChipGroup chipGroup;
-    private Spinner typeOfPizzaSpinner;
-    private Spinner typepizzaChoiceSpinner;
+    private Spinner pizzaStyleSpinner;
+    private Spinner pizzaTypeSpinner;
+
+    private ImageView pizzaPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
 
-        typeOfPizzaSpinner = findViewById(R.id.typeOfPizzaSpinner);
-        typepizzaChoiceSpinner = findViewById(R.id.typepizzaChoiceSpinner);
+        pizzaStyleSpinner = findViewById(R.id.typeOfPizzaSpinner);
+        pizzaTypeSpinner = findViewById(R.id.typepizzaChoiceSpinner);
         radioGroup = findViewById(R.id.radioGroup);
         smallRadioButton = findViewById(R.id.smallRadioButton);
         mediumRadioButton = findViewById(R.id.mediumRadioButton);
@@ -79,22 +80,27 @@ public class OrderPage extends AppCompatActivity {
         cheddar = findViewById(R.id.chipCheddar);
         beef = findViewById(R.id.chipBeef);
         ham = findViewById(R.id.chipHam);
+        pizzaPicture=findViewById(R.id.imageView);
 
         smallRadioButton.setChecked(true);
         clearAllChipColor();
         setupChipClickListeners();
         ArrayAdapter<String> pizzaTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"ChicagoPizza", "NYPizza"});
         pizzaTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeOfPizzaSpinner.setAdapter(pizzaTypeAdapter);
+        pizzaStyleSpinner.setAdapter(pizzaTypeAdapter);
 
         ArrayAdapter<String> pizzaChoiceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"Build Your Own", "Deluxe", "Meatzza", "BBQ Chicken"});
         pizzaChoiceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typepizzaChoiceSpinner.setAdapter(pizzaChoiceAdapter);
+        pizzaTypeSpinner.setAdapter(pizzaChoiceAdapter);
 
-        typeOfPizzaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        pizzaStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                updateCrustTextView(typeOfPizzaSpinner.getSelectedItem().toString(), typepizzaChoiceSpinner.getSelectedItem().toString());
+                String pizzaStyle= pizzaStyleSpinner.getSelectedItem().toString();
+                String pizzaType = pizzaTypeSpinner.getSelectedItem().toString();
+                updateCrustTextView(pizzaStyle, pizzaType);
+                int pizzaImage=getImage(pizzaStyle, pizzaType);
+                pizzaPicture.setImageResource(pizzaImage);
             }
 
             @Override
@@ -102,19 +108,54 @@ public class OrderPage extends AppCompatActivity {
             }
         });
 
-        typepizzaChoiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        pizzaTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String selectedPizza = parentView.getItemAtPosition(position).toString();
+                String pizzaStyle= pizzaStyleSpinner.getSelectedItem().toString();
+                String pizzaType = pizzaTypeSpinner.getSelectedItem().toString();
                 updateToppingChips(selectedPizza);
-                updateCrustTextView(typeOfPizzaSpinner.getSelectedItem().toString(), selectedPizza);
+                updateCrustTextView(pizzaStyleSpinner.getSelectedItem().toString(), selectedPizza);
                 updatePizzaPrice();
+                int pizzaImage=getImage(pizzaStyle, pizzaType);
+                pizzaPicture.setImageResource(pizzaImage);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
+    }
+//"Build Your Own", "Deluxe", "Meatzza", "BBQ Chicken"
+    private int getImage(String pizzaStyle, String pizzaType) {
+        if(pizzaStyle.equals("ChicagoPizza")){
+            if(pizzaType.equalsIgnoreCase("Build Your Own")){
+                return R.drawable.chicago_style_build_your_own;
+            }
+            else if(pizzaType.equalsIgnoreCase("Deluxe")){
+                return R.drawable.chicago_style_deluxe;
+            }
+            else if(pizzaType.equalsIgnoreCase("Meatzza")){
+                return R.drawable.chicago_style_meatzza;
+            }
+            else{
+                return R.drawable.chicago_style_bbq_chicken;
+            }
+        }
+        else{
+            if(pizzaType.equalsIgnoreCase("Build Your Own")){
+                return R.drawable.ny_style_build_your_own;
+            }
+            else if(pizzaType.equalsIgnoreCase("Deluxe")){
+                return R.drawable.ny_style_deluxe;
+            }
+            else if(pizzaType.equalsIgnoreCase("Meatzza")){
+                return R.drawable.ny_style_meatzza;
+            }
+            else{
+                return R.drawable.ny_style_bbq_chicken;
+            }
+        }
     }
 
     private void clearAllChipColor() {
@@ -135,7 +176,7 @@ public class OrderPage extends AppCompatActivity {
 //                    clickedChip.isChecked();
                     //clearAllChipColor();
                     // If the pizza choice is "Build Your Own", handle topping selection
-                    if(typepizzaChoiceSpinner.getSelectedItem().toString().equals("Build Your Own")) {
+                    if(pizzaTypeSpinner.getSelectedItem().toString().equals("Build Your Own")) {
                         if (!clickedChip.isSelected()) {
                             // If the chip is selected, change its color and update the topping count
                             clickedChip.setSelected(true);
