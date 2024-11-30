@@ -1,9 +1,11 @@
 package com.example.project5;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -58,6 +60,9 @@ public class OrderPage extends AppCompatActivity {
 
     private TextView price;
 
+    private Button backButton;
+    private Button orderButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +88,9 @@ public class OrderPage extends AppCompatActivity {
         beef = findViewById(R.id.chipBeef);
         ham = findViewById(R.id.chipHam);
         pizzaPicture=findViewById(R.id.imageView);
+        backButton=findViewById(R.id.back_button);
+        orderButton=findViewById(R.id.order_button);
+
 
         smallRadioButton.setChecked(true);
         clearAllChipColor();
@@ -95,6 +103,18 @@ public class OrderPage extends AppCompatActivity {
         pizzaChoiceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pizzaTypeSpinner.setAdapter(pizzaChoiceAdapter);
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> updatePizzaPrice());
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an intent to navigate back to MainActivity
+                Intent intent = new Intent(OrderPage.this, MainActivity.class);
+                startActivity(intent);
+//                finish(); // Optional, if you don't want the user to return to this activity
+            }
+        });
+
+
         pizzaStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
