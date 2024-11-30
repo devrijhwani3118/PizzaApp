@@ -49,12 +49,14 @@ public class OrderPage extends AppCompatActivity {
     private RadioButton mediumRadioButton;
     private RadioButton largeRadioButton;
     private TextView crustTextView;
-    private TextView pizzaPriceTextView;
+    private TextView pizzaPrice;
     private ChipGroup chipGroup;
     private Spinner pizzaStyleSpinner;
     private Spinner pizzaTypeSpinner;
 
     private ImageView pizzaPicture;
+
+    private TextView price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class OrderPage extends AppCompatActivity {
         largeRadioButton = findViewById(R.id.largeRadioButton3);
         chipGroup = findViewById(R.id.chipGroup);
         crustTextView = findViewById(R.id.crustTextView);
-        pizzaPriceTextView = findViewById(R.id.priceTextView);
+        pizzaPrice = findViewById(R.id.priceTextView);
         sausage = findViewById(R.id.chipSausage);
         pepperoni = findViewById(R.id.chipPepperoni);
         greenPepper = findViewById(R.id.chipGreenPepper);
@@ -92,7 +94,7 @@ public class OrderPage extends AppCompatActivity {
         ArrayAdapter<String> pizzaChoiceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"Build Your Own", "Deluxe", "Meatzza", "BBQ Chicken"});
         pizzaChoiceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pizzaTypeSpinner.setAdapter(pizzaChoiceAdapter);
-
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> updatePizzaPrice());
         pizzaStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -101,6 +103,7 @@ public class OrderPage extends AppCompatActivity {
                 updateCrustTextView(pizzaStyle, pizzaType);
                 int pizzaImage=getImage(pizzaStyle, pizzaType);
                 pizzaPicture.setImageResource(pizzaImage);
+                updatePizzaPrice();
             }
 
             @Override
@@ -208,6 +211,7 @@ public class OrderPage extends AppCompatActivity {
                 enableAllChips();
             }
         }
+        updatePizzaPrice();
     }
 
 
@@ -317,13 +321,34 @@ public class OrderPage extends AppCompatActivity {
     }
 
     private void updatePizzaPrice() {
-        pizzaCost = basePrice;
-        if (mediumRadioButton.isChecked()) {
-            pizzaCost += 2.00;
-        } else if (largeRadioButton.isChecked()) {
-            pizzaCost += 4.00;
+        String selectedPizza = pizzaTypeSpinner.getSelectedItem().toString();
+        double price = basePrice;
+
+        // Determine base price based on pizza type and size
+        switch (selectedPizza) {
+            case "Build Your Own":
+                price = smallRadioButton.isChecked() ? 8.99 :
+                        mediumRadioButton.isChecked() ? 10.99 : 12.99;
+                price += (selectedToppingsCount * 1.69);
+                break;
+            case "Deluxe":
+                price = smallRadioButton.isChecked() ? 16.99 :
+                        mediumRadioButton.isChecked() ? 18.99 : 20.99;
+                break;
+            case "Meatzza":
+                price = smallRadioButton.isChecked() ? 17.99 :
+                        mediumRadioButton.isChecked() ? 19.99 : 21.99;
+                break;
+            case "BBQ Chicken":
+                price = smallRadioButton.isChecked() ? 14.99 :
+                        mediumRadioButton.isChecked() ? 16.99 : 19.99;
+                break;
+            default:
+                break;
         }
-        pizzaCost += selectedToppingsCount * 1.50;
-        pizzaPriceTextView.setText(String.format("$%.2f", pizzaCost));
+
+        // Update the TextView with formatted price
+        pizzaPrice.setText(String.format("$%.2f", price));
     }
+
 }
