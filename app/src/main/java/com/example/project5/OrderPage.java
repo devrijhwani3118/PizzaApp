@@ -70,18 +70,19 @@ public class OrderPage extends AppCompatActivity {
         crustTextView = findViewById(R.id.crustTextView);
         pizzaPriceTextView = findViewById(R.id.priceTextView);
         sausage = findViewById(R.id.chipSausage);
-        pepperoni= findViewById(R.id.chipPepperoni);
-        greenPepper= findViewById(R.id.chipGreenPepper);
-        onion= findViewById(R.id.chipOnion);
-        mushroom= findViewById(R.id.chipMushroom);
-        bbqChicken= findViewById(R.id.chipBBQChicken);
-        provolone= findViewById(R.id.chipProvolone);
-        cheddar= findViewById(R.id.chipCheddar);
-        beef= findViewById(R.id.chipBeef);
-        ham= findViewById(R.id.chipHam);
+        pepperoni = findViewById(R.id.chipPepperoni);
+        greenPepper = findViewById(R.id.chipGreenPepper);
+        onion = findViewById(R.id.chipOnion);
+        mushroom = findViewById(R.id.chipMushroom);
+        bbqChicken = findViewById(R.id.chipBBQChicken);
+        provolone = findViewById(R.id.chipProvolone);
+        cheddar = findViewById(R.id.chipCheddar);
+        beef = findViewById(R.id.chipBeef);
+        ham = findViewById(R.id.chipHam);
 
         smallRadioButton.setChecked(true);
-
+        clearAllChipColor();
+        setupChipClickListeners();
         ArrayAdapter<String> pizzaTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"ChicagoPizza", "NYPizza"});
         pizzaTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeOfPizzaSpinner.setAdapter(pizzaTypeAdapter);
@@ -116,6 +117,62 @@ public class OrderPage extends AppCompatActivity {
         });
     }
 
+    private void clearAllChipColor() {
+        for (int i = 0; i < chipGroup.getChildCount(); i++) {
+            Chip chip = (Chip) chipGroup.getChildAt(i);
+            chip.setChipBackgroundColorResource(android.R.color.white); // Reset to default color
+        }
+    }
+
+    private void setupChipClickListeners() {
+        // Set up click listeners for each chip inside the ChipGroup
+        for (int i = 0; i < chipGroup.getChildCount(); i++) {
+            Chip chip = (Chip) chipGroup.getChildAt(i);
+            chip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Chip clickedChip = (Chip) v;
+//                    clickedChip.isChecked();
+                    //clearAllChipColor();
+                    // If the pizza choice is "Build Your Own", handle topping selection
+                    if (!clickedChip.isChecked()) {
+                        // If the chip is selected, change its color and update the topping count
+                        clickedChip.setChecked(true);
+                        clickedChip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
+                        handleToppingSelection(clickedChip, true);  // Increase count when selected
+                    }
+                    else {
+                        // If the chip is unselected, revert its color and update the topping count
+                        clickedChip.setChipBackgroundColorResource(android.R.color.white);
+                        handleToppingSelection(clickedChip, false);  // Decrease count when unselected
+                        clickedChip.setChecked(false);
+                    }
+                }
+            });
+        }
+    }
+
+    private void handleToppingSelection(Chip chip, boolean isSelected) {
+        if (isSelected) {
+            selectedToppingsCount++;
+            // Disable other chips if the limit is reached
+            if (selectedToppingsCount >= MAX_TOPPINGS) {
+                disableUncheckedChips();
+            }
+        } else {
+            selectedToppingsCount--;
+            // Enable chips if the limit is no longer reached
+            if (selectedToppingsCount < MAX_TOPPINGS) {
+                enableAllChips();
+            }
+        }
+    }
+
+
+//    private void changeChipColor(Chip clickedChip) {
+//        clickedChip.setChipBackgroundColorResource(android.R.color.holo_blue_light); // Set your desired color
+//    }
+
     private void updateToppingChips(String selectedPizza) {
         Set<String> enabledToppings = new HashSet<>();
         if ("Deluxe".equals(selectedPizza)) {
@@ -127,31 +184,11 @@ public class OrderPage extends AppCompatActivity {
         } else if ("Meatzza".equals(selectedPizza)) {
             enabledToppings = meatzzaToppings;
             enableMeatzzaTopping(enabledToppings);
-        }
-        else enableAllChips();
-//        else if ("Build Your Own".equals(selectedPizza)) {
-//            enabledToppings.addAll(Arrays.asList(allToppings));
-//        }
-//
-//        selectedToppingsCount = 0;
-//        for (int i = 0; i < chipGroup.getChildCount(); i++) {
-//            Chip chip = (Chip) chipGroup.getChildAt(i);
-//            String topping = chip.getText().toString();
-//            boolean isEnabled = enabledToppings.contains(topping);
-//            chip.setEnabled(isEnabled);
-//            if (isEnabled) {
-//                chip.setChecked(enabledToppings.contains(topping));
-//                if (chip.isChecked()) {
-//                    selectedToppingsCount++;
-//                }
-//            }
-//        }
-//        if ("Build Your Own".equals(selectedPizza)) {
-//            enableAllChips();
-//        }
+        } else enableAllChips();
+
     }
 
-//
+    //
 //    private final Set<String> deluxeToppings = new HashSet<>(Arrays.asList("Sausage", "Pepperoni", "Green Pepper", "Onion", "Mushroom"));
     private void enableMeatzzaTopping(Set<String> enabledToppings) {
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
@@ -160,11 +197,10 @@ public class OrderPage extends AppCompatActivity {
         }
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
-            if(chip.equals(sausage) || chip.equals(pepperoni)|| chip.equals(beef)|| chip.equals(ham)) {
+            if (chip.equals(sausage) || chip.equals(pepperoni) || chip.equals(beef) || chip.equals(ham)) {
                 chip.setEnabled(true);
                 chip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
-            }
-            else chip.setEnabled(false);
+            } else chip.setEnabled(false);
         }
     }
 
@@ -175,11 +211,10 @@ public class OrderPage extends AppCompatActivity {
         }
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
-            if(chip.equals(bbqChicken) || chip.equals(greenPepper)|| chip.equals(provolone)|| chip.equals(cheddar)) {
+            if (chip.equals(bbqChicken) || chip.equals(greenPepper) || chip.equals(provolone) || chip.equals(cheddar)) {
                 chip.setEnabled(true);
                 chip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
-            }
-            else chip.setEnabled(false);
+            } else chip.setEnabled(false);
         }
     }
 
@@ -190,11 +225,10 @@ public class OrderPage extends AppCompatActivity {
         }
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
-            if(chip.equals(sausage) || chip.equals(pepperoni) || chip.equals(greenPepper) || chip.equals(onion) || chip.equals(mushroom)){
+            if (chip.equals(sausage) || chip.equals(pepperoni) || chip.equals(greenPepper) || chip.equals(onion) || chip.equals(mushroom)) {
                 chip.setEnabled(true);
                 chip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
-            }
-            else chip.setEnabled(false);
+            } else chip.setEnabled(false);
         }
     }
 
