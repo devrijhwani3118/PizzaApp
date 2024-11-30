@@ -135,9 +135,9 @@ public class OrderPage extends AppCompatActivity {
 //                    clickedChip.isChecked();
                     //clearAllChipColor();
                     // If the pizza choice is "Build Your Own", handle topping selection
-                    if (!clickedChip.isChecked()) {
+                    if (!clickedChip.isSelected()) {
                         // If the chip is selected, change its color and update the topping count
-                        clickedChip.setChecked(true);
+                        clickedChip.setSelected(true);
                         clickedChip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
                         handleToppingSelection(clickedChip, true);  // Increase count when selected
                     }
@@ -145,7 +145,7 @@ public class OrderPage extends AppCompatActivity {
                         // If the chip is unselected, revert its color and update the topping count
                         clickedChip.setChipBackgroundColorResource(android.R.color.white);
                         handleToppingSelection(clickedChip, false);  // Decrease count when unselected
-                        clickedChip.setChecked(false);
+                        clickedChip.setSelected(false);
                     }
                 }
             });
@@ -239,24 +239,11 @@ public class OrderPage extends AppCompatActivity {
         }
     }
 
-    private void handleToppingSelection(Chip chip) {
-        if (chip.isChecked()) {
-            selectedToppingsCount++;
-            if (selectedToppingsCount >= MAX_TOPPINGS) {
-                disableUncheckedChips();
-            }
-        } else {
-            selectedToppingsCount--;
-            if (selectedToppingsCount < MAX_TOPPINGS) {
-                enableAllChips();
-            }
-        }
-    }
 
     private void disableUncheckedChips() {
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
-            if (!chip.isChecked()) {
+            if (!chip.isSelected()) {
                 chip.setEnabled(false);
             }
         }
