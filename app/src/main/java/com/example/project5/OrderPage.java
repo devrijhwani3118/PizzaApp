@@ -135,17 +135,18 @@ public class OrderPage extends AppCompatActivity {
 //                    clickedChip.isChecked();
                     //clearAllChipColor();
                     // If the pizza choice is "Build Your Own", handle topping selection
-                    if (!clickedChip.isSelected()) {
-                        // If the chip is selected, change its color and update the topping count
-                        clickedChip.setSelected(true);
-                        clickedChip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
-                        handleToppingSelection(clickedChip, true);  // Increase count when selected
-                    }
-                    else {
-                        // If the chip is unselected, revert its color and update the topping count
-                        clickedChip.setChipBackgroundColorResource(android.R.color.white);
-                        handleToppingSelection(clickedChip, false);  // Decrease count when unselected
-                        clickedChip.setSelected(false);
+                    if(typepizzaChoiceSpinner.getSelectedItem().toString().equals("Build Your Own")) {
+                        if (!clickedChip.isSelected()) {
+                            // If the chip is selected, change its color and update the topping count
+                            clickedChip.setSelected(true);
+                            clickedChip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
+                            handleToppingSelection(clickedChip, true);  // Increase count when selected
+                        } else {
+                            // If the chip is unselected, revert its color and update the topping count
+                            clickedChip.setChipBackgroundColorResource(android.R.color.white);
+                            handleToppingSelection(clickedChip, false);  // Decrease count when unselected
+                            clickedChip.setSelected(false);
+                        }
                     }
                 }
             });
@@ -175,6 +176,9 @@ public class OrderPage extends AppCompatActivity {
 
     private void updateToppingChips(String selectedPizza) {
         Set<String> enabledToppings = new HashSet<>();
+//        clearAllChipColor();
+//        enableAllChips();
+//        selectedToppingsCount=0;
         if ("Deluxe".equals(selectedPizza)) {
             enabledToppings = deluxeToppings;
             enableDeluxeTopping(enabledToppings);
@@ -184,7 +188,12 @@ public class OrderPage extends AppCompatActivity {
         } else if ("Meatzza".equals(selectedPizza)) {
             enabledToppings = meatzzaToppings;
             enableMeatzzaTopping(enabledToppings);
-        } else enableAllChips();
+        } else{
+            enableAllChips();
+            clearAllChipColor();
+            selectedToppingsCount=0;
+            setupChipClickListeners();
+        }
 
     }
 
@@ -236,6 +245,8 @@ public class OrderPage extends AppCompatActivity {
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
             chip.setEnabled(true);
+            chip.setSelected(true);
+            chip.setSelected(false);
         }
     }
 
