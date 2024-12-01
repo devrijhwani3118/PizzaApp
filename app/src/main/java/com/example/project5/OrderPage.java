@@ -236,7 +236,7 @@ public class OrderPage extends AppCompatActivity {
             selectedToppingsCount--;
             // Enable chips if the limit is no longer reached
             if (selectedToppingsCount < MAX_TOPPINGS) {
-                enableAllChips();
+                enableUnselectedChips();
             }
         }
         updatePizzaPrice();
@@ -311,6 +311,17 @@ public class OrderPage extends AppCompatActivity {
                 chip.setEnabled(true);
                 chip.setChipBackgroundColorResource(android.R.color.holo_purple);
             } else chip.setEnabled(false);
+        }
+    }
+
+    private void enableUnselectedChips() {
+        for (int i = 0; i < chipGroup.getChildCount(); i++) {
+            Chip chip = (Chip) chipGroup.getChildAt(i);
+            if(!chip.isSelected()) {
+                chip.setEnabled(true);
+                chip.setSelected(true);
+                chip.setSelected(false);
+            }
         }
     }
 
