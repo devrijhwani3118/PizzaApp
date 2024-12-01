@@ -1,7 +1,5 @@
 package com.example.project5;
 
-import java.util.List;
-
 public class OrderView {
 
     private double subtotal;

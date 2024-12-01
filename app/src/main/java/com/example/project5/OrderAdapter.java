@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Locale;
+
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,9 +36,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         // Set the order details
         holder.orderDetails.setText(order.getPizzaStringDescription());
-        holder.subtotal.setText(String.format("Subtotal: $%.2f", order.getSubtotal()));
-        holder.tax.setText(String.format("Tax: $%.2f", order.getSubtotal() * 0.06625));
-        holder.total.setText(String.format("Total: $%.2f", order.getSubtotal() * 1.06625));
+        holder.subtotal.setText(String.format(Locale.US, "$%.2f", order.getSubtotal()));
+        holder.tax.setText(String.format(Locale.US, "$%.2f", order.getSubtotal() * 0.06625));
+        holder.total.setText(String.format(Locale.US, "$%.2f", order.getSubtotal() * 1.06625));
+
 
         int pizzaPicture=getImage(holder.orderDetails.getText().toString());
         holder.pizzaImage.setImageResource(pizzaPicture);
