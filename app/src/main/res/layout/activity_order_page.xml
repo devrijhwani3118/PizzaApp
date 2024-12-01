@@ -5,6 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#490DB4"
+    android:backgroundTint="#7E7A6AD5"
     tools:context=".OrderPage">
 
     <!-- Spinner for Pizza Choice -->

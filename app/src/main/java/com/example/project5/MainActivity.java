@@ -3,6 +3,7 @@ package com.example.project5;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +13,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ImageView mainPizzaPicture;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+
 
         setContentView(R.layout.activity_main);
 
@@ -24,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        mainPizzaPicture=findViewById(R.id.imageView4);
+        int pizzaImage= R.drawable.pizza_chef;
+        mainPizzaPicture.setImageResource(pizzaImage);
 
         Button button1 = findViewById(R.id.orderHereButton);
 

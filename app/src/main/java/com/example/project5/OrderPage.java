@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -148,6 +149,13 @@ public class OrderPage extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
+
+        orderButton.setOnClickListener(v -> {
+            createAndSavePizza();
+            Intent intent = new Intent(OrderPage.this, CurrentOrder.class);
+            startActivity(intent);
+        });
+
     }
 //"Build Your Own", "Deluxe", "Meatzza", "BBQ Chicken"
     private int getImage(String pizzaStyle, String pizzaType) {
@@ -203,7 +211,7 @@ public class OrderPage extends AppCompatActivity {
                         if (!clickedChip.isSelected()) {
                             // If the chip is selected, change its color and update the topping count
                             clickedChip.setSelected(true);
-                            clickedChip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
+                            clickedChip.setChipBackgroundColorResource(android.R.color.holo_purple);
                             handleToppingSelection(clickedChip, true);  // Increase count when selected
                         } else {
                             // If the chip is unselected, revert its color and update the topping count
@@ -273,7 +281,7 @@ public class OrderPage extends AppCompatActivity {
             Chip chip = (Chip) chipGroup.getChildAt(i);
             if (chip.equals(sausage) || chip.equals(pepperoni) || chip.equals(beef) || chip.equals(ham)) {
                 chip.setEnabled(true);
-                chip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
+                chip.setChipBackgroundColorResource(android.R.color.holo_purple);
             } else chip.setEnabled(false);
         }
     }
@@ -287,7 +295,7 @@ public class OrderPage extends AppCompatActivity {
             Chip chip = (Chip) chipGroup.getChildAt(i);
             if (chip.equals(bbqChicken) || chip.equals(greenPepper) || chip.equals(provolone) || chip.equals(cheddar)) {
                 chip.setEnabled(true);
-                chip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
+                chip.setChipBackgroundColorResource(android.R.color.holo_purple);
             } else chip.setEnabled(false);
         }
     }
@@ -301,7 +309,7 @@ public class OrderPage extends AppCompatActivity {
             Chip chip = (Chip) chipGroup.getChildAt(i);
             if (chip.equals(sausage) || chip.equals(pepperoni) || chip.equals(greenPepper) || chip.equals(onion) || chip.equals(mushroom)) {
                 chip.setEnabled(true);
-                chip.setChipBackgroundColorResource(android.R.color.holo_blue_light);
+                chip.setChipBackgroundColorResource(android.R.color.holo_purple);
             } else chip.setEnabled(false);
         }
     }
@@ -369,6 +377,87 @@ public class OrderPage extends AppCompatActivity {
 
         // Update the TextView with formatted price
         pizzaPrice.setText(String.format("$%.2f", price));
+    }
+
+    private void createAndSavePizza() {
+        // Determine the selected crust and size
+        String crustType = crustTextView.getText().toString();
+        Crust crust = Crust.valueOf(crustType.toUpperCase().replace(" ", "_")); // Adjust if Crust enum naming differs
+
+        Size size;
+        if (smallRadioButton.isChecked()) {
+            size = Size.SMALL;
+        } else if (mediumRadioButton.isChecked()) {
+            size = Size.MEDIUM;
+        } else {
+            size = Size.LARGE;
+        }
+        String pizzaToStringType = "";
+
+        String pizzaStyle = pizzaStyleSpinner.getSelectedItem().toString();
+        String pizzaType = pizzaTypeSpinner.getSelectedItem().toString();
+        Pizza pizza;
+        if(pizzaStyle.equals("NYPizza")){
+            if(pizzaType.equals("Deluxe")){
+                pizza = new NYPizza().createDeluxe(size);
+                pizzaToStringType = "New York Style-Brooklyn";
+            }
+            else if(pizzaType.equals("BBQ Chicken")){
+                pizza = new NYPizza().createBBQChicken(size);
+                pizzaToStringType = "New York Style-Thin";
+
+            }
+            else if (pizzaType.equals("Meatzza")){
+                pizza = new NYPizza().createMeatzza(size);
+                pizzaToStringType = "New York Style-HandTossed";
+            } else{
+                pizza = new NYPizza().createBuildYourOwn(size);
+                for (int i = 0; i < chipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) chipGroup.getChildAt(i);
+                    if (chip.isSelected()) {
+                        Topping topping  = getSelectedToppings(chip.getText().toString());
+                        pizza.addTopping(topping);
+                    }
+                }
+                pizzaToStringType = "New York Style-HandTossed";
+            }
+        } else{
+            if(pizzaType.equals("Deluxe")){
+                pizza = new ChicagoPizza().createDeluxe(size);
+                pizzaToStringType = "Chicago Style-Deep Dish";
+            }
+            else if(pizzaType.equals("BBQ Chicken")){
+                pizzaToStringType = "Chicago Style-Pan";
+                pizza = new ChicagoPizza().createBBQChicken(size);
+
+            }
+            else if (pizzaType.equals("Meatzza")){
+                pizzaToStringType = "Chicago Style-Stuffed";
+                pizza = new ChicagoPizza().createMeatzza(size);
+            } else{
+                pizza = new ChicagoPizza().createBuildYourOwn(size);
+                for (int i = 0; i < chipGroup.getChildCount(); i++) {
+                    Chip chip = (Chip) chipGroup.getChildAt(i);
+                    if (chip.isSelected()) {
+                        Topping topping  = getSelectedToppings(chip.getText().toString());
+                        pizza.addTopping(topping);
+                    }
+                }
+            }
+            pizzaToStringType = "Chicago Style-Pan";
+        }
+        String pizzaString = pizzaTypeSpinner.getSelectedItem().toString() + " (" + pizzaToStringType + ")" +
+                ", " + pizza.getToppings() + ", " + size.toString() + ", "  + pizzaPrice.getText();
+
+        // Save to singleton
+        PizzaSingleton.getInstance().getPizzas().add(pizza);
+        PizzaSingleton.getInstance().getPizzasString().add(pizzaString);
+        Toast.makeText(this, "Pizza Added to Current Orders!", Toast.LENGTH_SHORT).show();
+    }
+
+    public Topping getSelectedToppings(String chipString) {
+       String topping = chipString.toUpperCase().replace(" ", "_");
+       return Topping.valueOf(topping);
     }
 
 }

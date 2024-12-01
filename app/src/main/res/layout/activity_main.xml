@@ -11,9 +11,9 @@
 
     <Button
         android:id="@+id/orderHereButton"
-        android:layout_width="240dp"
+        android:layout_width="246dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="26dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/order_here"
         app:layout_constraintBottom_toTopOf="@+id/currentOrdersButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,9 +22,9 @@
 
     <Button
         android:id="@+id/storeOrdersButton"
-        android:layout_width="235dp"
+        android:layout_width="246dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/store_orders"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,41 +33,24 @@
 
     <Button
         android:id="@+id/currentOrdersButton"
-        android:layout_width="235dp"
+        android:layout_width="246dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="9dp"
         android:text="@string/current_orders"
         app:layout_constraintBottom_toTopOf="@+id/storeOrdersButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orderHereButton" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/biryani_bold"
-        android:text="@string/ru_pizzaria"
-        android:textColor="#33116A"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="331dp"
-        android:layout_height="405dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="53dp"
+        android:layout_width="423dp"
+        android:layout_height="487dp"
+        android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toTopOf="@+id/orderHereButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/pizza_chef" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
