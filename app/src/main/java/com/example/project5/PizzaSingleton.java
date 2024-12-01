@@ -2,6 +2,7 @@ package com.example.project5;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.widget.Button;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +37,7 @@ public class PizzaSingleton {
         orderNumberList = new ArrayList<>();
         pizzas = new ArrayList<>();
         orders = new ArrayList<>();
-        orderNumber=1;
+        orderNumber=0;
 
     }
 

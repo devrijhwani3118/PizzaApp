@@ -452,6 +452,8 @@ public class OrderPage extends AppCompatActivity {
         // Save to singleton
         PizzaSingleton.getInstance().getPizzas().add(pizza);
         PizzaSingleton.getInstance().getPizzasString().add(pizzaString);
+        PizzaSingleton.getInstance().setOrderNumber(PizzaSingleton.getInstance().getOrderNumber()+1);
+        PizzaSingleton.getInstance().getOrderNumberList().add(PizzaSingleton.getInstance().getOrderNumber());
         Toast.makeText(this, "Pizza Added to Current Orders!", Toast.LENGTH_SHORT).show();
     }
 

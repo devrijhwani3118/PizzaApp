@@ -1,8 +1,10 @@
 package com.example.project5;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,14 +28,18 @@ public class CurrentOrder extends AppCompatActivity {
     private double totalCostPizzas = ZERO;
     private final double TAX = 0.06625;
 
+    private Button backButton;
+    private ImageView pizzaPicture;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_order_page);
-
+        backButton=findViewById(R.id.back_button_current_order);
         // Initialize RecyclerView
         currentOrdersRecyclerView = findViewById(R.id.currentOrdersRecyclerView);
         currentOrdersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         // Initialize Data
         currentOrders = getCurrentOrders();
@@ -43,6 +49,16 @@ public class CurrentOrder extends AppCompatActivity {
         orderNumber=PizzaSingleton.getOrderNumber();
         TextView orderNumberText = findViewById(R.id.order_number_int);
         orderNumberText.setText(String.valueOf(orderNumber));
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an intent to navigate back to MainActivity
+                Intent intent = new Intent(CurrentOrder.this, MainActivity.class);
+                startActivity(intent);
+//                finish(); // Optional, if you don't want the user to return to this activity
+            }
+        });
 
         // Set Adapter
         currentOrdersRecyclerView.setAdapter(currentOrdersAdapter);
@@ -68,7 +84,7 @@ public class CurrentOrder extends AppCompatActivity {
             String pizzaString = pizzaStrings.get(i);
             int orderNum = orderNumberList.get(i);
 
-            orders.add(new OrderView(pizza.toString(), pizza.price(), pizzaString, orderNum));
+            orders.add(new OrderView(pizza.price(), pizzaString, orderNum));
         }
 
         return orders;
@@ -81,12 +97,12 @@ public class CurrentOrder extends AppCompatActivity {
         }
 
         // Add items to PizzaSingleton
-        for (OrderView orderView : currentOrders) {
-            if (!PizzaSingleton.getPizzasString().contains(orderView.getPizzaStringDescription())) {
-                PizzaSingleton.getPizzasString().add(orderView.getPizzaStringDescription());
-                PizzaSingleton.getPizzas().add(orderView.getPizza());
-            }
-        }
+//        for (OrderView orderView : currentOrders) {
+//            if (!PizzaSingleton.getPizzasString().contains(orderView.getPizzaStringDescription())) {
+//                PizzaSingleton.getPizzasString().add(orderView.getPizzaStringDescription());
+//                PizzaSingleton.getPizzas().add(orderView.getPizza());
+//            }
+//        }
 
         // Update order list and order number
         PizzaSingleton.getOrderList().add(currentOrders.toString());
