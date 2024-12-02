@@ -105,9 +105,16 @@ public class CurrentOrder extends AppCompatActivity {
 //        }
 
         // Update order list and order number
-        PizzaSingleton.getOrderList().add(currentOrders.toString());
-        PizzaSingleton.setOrderNumber(PizzaSingleton.getOrderNumber() + 1);
-        PizzaSingleton.getOrderNumberList().add(PizzaSingleton.getOrderNumber());
+
+
+        String order = "";
+        for(int i=0; i<PizzaSingleton.getInstance().getPizzasString().size(); i++){
+            order+=PizzaSingleton.getInstance().getPizzasString().get(i)+"\n";
+        }
+        PizzaSingleton.getInstance().getOrderList().add(order);
+        PizzaSingleton.getInstance().setOrderNumber(PizzaSingleton.getInstance().getOrderNumber() + 1);
+        PizzaSingleton.getInstance().getOrderNumberList().add(PizzaSingleton.getInstance().getOrderNumber());
+        PizzaSingleton.getInstance().getOrders().add(new Order (PizzaSingleton.getInstance().getOrderNumber(), PizzaSingleton.getInstance().getPizzas()));
 
         // Clear current orders
         currentOrders.clear();
@@ -115,8 +122,8 @@ public class CurrentOrder extends AppCompatActivity {
 
         // Show confirmation
         Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_SHORT).show();
-        PizzaSingleton.setPizzasString(new ArrayList<String>());
-        PizzaSingleton.setPizzas(new ArrayList<Pizza>());
+        PizzaSingleton.getInstance().setPizzasString(new ArrayList<String>());
+        PizzaSingleton.getInstance().setPizzas(new ArrayList<Pizza>());
         // Recalculate totals
         recalculateTotals();
     }
@@ -126,7 +133,7 @@ public class CurrentOrder extends AppCompatActivity {
         salesTaxPizzas = ZERO;
         totalCostPizzas = ZERO;
 
-        for (Pizza pizza : PizzaSingleton.getPizzas()) {
+        for (Pizza pizza : PizzaSingleton.getInstance().getPizzas()) {
             subtotalPizzas += pizza.price();
         }
         salesTaxPizzas = subtotalPizzas * TAX;
