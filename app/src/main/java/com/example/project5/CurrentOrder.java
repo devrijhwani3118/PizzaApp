@@ -74,7 +74,7 @@ public class CurrentOrder extends AppCompatActivity {
         // Fetch data from PizzaSingleton
         List<Pizza> pizzas = PizzaSingleton.getPizzas();
         List<String> pizzaStrings = PizzaSingleton.getPizzasString();
-        List<Integer> orderNumberList = PizzaSingleton.getOrderNumberList();
+//        List<Integer> orderNumberList = PizzaSingleton.getOrderNumberList();
 
         if (pizzas == null || pizzaStrings == null) return orders;
 
@@ -82,9 +82,9 @@ public class CurrentOrder extends AppCompatActivity {
         for (int i = 0; i < pizzas.size(); i++) {
             Pizza pizza = pizzas.get(i);
             String pizzaString = pizzaStrings.get(i);
-            int orderNum = orderNumberList.get(i);
+//            int orderNum = orderNumberList.get(i);
 
-            orders.add(new OrderView(pizza.price(), pizzaString, orderNum));
+            orders.add(new OrderView(pizza.price(), pizzaString));
         }
 
         return orders;
@@ -112,8 +112,16 @@ public class CurrentOrder extends AppCompatActivity {
             order+=PizzaSingleton.getInstance().getPizzasString().get(i)+"\n";
         }
         PizzaSingleton.getInstance().getOrderList().add(order);
-        PizzaSingleton.getInstance().setOrderNumber(PizzaSingleton.getInstance().getOrderNumber() + 1);
+
         PizzaSingleton.getInstance().getOrderNumberList().add(PizzaSingleton.getInstance().getOrderNumber());
+        PizzaSingleton.getInstance().setOrderNumber(PizzaSingleton.getInstance().getOrderNumber() + 1);
+
+        for(int i=0; i<PizzaSingleton.getInstance().getOrderNumberList().size();i++){
+            Toast.makeText(this, "Number:"+PizzaSingleton.getInstance().getOrderNumberList().get(i), Toast.LENGTH_SHORT).show();
+        }
+
+
+
         PizzaSingleton.getInstance().getOrders().add(new Order (PizzaSingleton.getInstance().getOrderNumber(), PizzaSingleton.getInstance().getPizzas()));
 
         // Clear current orders

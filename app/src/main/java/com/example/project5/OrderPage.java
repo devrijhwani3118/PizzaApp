@@ -346,13 +346,13 @@ public class OrderPage extends AppCompatActivity {
 
     private void updateCrustTextView(String pizzaType, String pizzaChoice) {
         if (pizzaChoice.equals("Build Your Own")) {
-            crustTextView.setText(pizzaType.equals("ChicagoPizza") ? "Pan" : "Hand-tossed");
+            crustTextView.setText(pizzaType.equals("ChicagoPizza") ? "Pan" : "Hand Tossed");
         } else if (pizzaChoice.equals("Deluxe")) {
             crustTextView.setText(pizzaType.equals("ChicagoPizza") ? "Deep Dish" : "Brooklyn");
         } else if (pizzaChoice.equals("BBQ Chicken")) {
             crustTextView.setText(pizzaType.equals("ChicagoPizza") ? "Pan" : "Thin");
         } else if (pizzaChoice.equals("Meatzza")) {
-            crustTextView.setText(pizzaType.equals("ChicagoPizza") ? "Stuffed" : "Hand-tossed");
+            crustTextView.setText(pizzaType.equals("ChicagoPizza") ? "Stuffed" : "Hand Tossed");
         } else {
             crustTextView.setText(""); // Clear text if no valid selection
         }
@@ -463,8 +463,8 @@ public class OrderPage extends AppCompatActivity {
         // Save to singleton
         PizzaSingleton.getInstance().getPizzas().add(pizza);
         PizzaSingleton.getInstance().getPizzasString().add(pizzaString);
-        PizzaSingleton.getInstance().setOrderNumber(PizzaSingleton.getInstance().getOrderNumber()+1);
-        PizzaSingleton.getInstance().getOrderNumberList().add(PizzaSingleton.getInstance().getOrderNumber());
+//        PizzaSingleton.getInstance().setOrderNumber(PizzaSingleton.getInstance().getOrderNumber()+1);
+//        PizzaSingleton.getInstance().getOrderNumberList().add(PizzaSingleton.getInstance().getOrderNumber());
         Toast.makeText(this, "Pizza Added to Current Orders!", Toast.LENGTH_SHORT).show();
     }
 

@@ -37,7 +37,8 @@ public class PizzaSingleton {
         orderNumberList = new ArrayList<>();
         pizzas = new ArrayList<>();
         orders = new ArrayList<>();
-        orderNumber=0;
+        orderNumber=1;
+//        orderNumberList.add(orderNumber);
 
     }
 

@@ -98,7 +98,7 @@ public class StoreOrders extends AppCompatActivity {
         }
 
         ArrayList<String> orderList = PizzaSingleton.getOrderList();
-        String selectedOrderDetails = orderList.get(PizzaSingleton.getInstance().getOrderNumberList().indexOf(selectedOrderIndex));
+        String selectedOrderDetails = orderList.get(selectedOrderIndex);
 
         // Populate the ListView with order items
         String[] items = selectedOrderDetails.split("\n");

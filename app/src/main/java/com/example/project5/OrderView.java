@@ -5,12 +5,10 @@ public class OrderView {
     private double subtotal;
 
     private String pizzaStringDescription;
-    private int orderNumber;
 
-    public OrderView(double subtotal, String pizzaString, int orderNum) {
+    public OrderView(double subtotal, String pizzaString) {
         this.subtotal = subtotal;
         pizzaStringDescription=pizzaString;
-        orderNumber=orderNum;
     }
 
     public String getPizzaStringDescription() {
@@ -69,17 +67,17 @@ public class OrderView {
         return pizza;
     }
 
-    public int getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public void setPizzaStringDescription(String pizzaStringDescription) {
-        this.pizzaStringDescription = pizzaStringDescription;
-    }
+//    public int getOrderNumber() {
+//        return orderNumber;
+//    }
+//
+//    public void setOrderNumber(int orderNumber) {
+//        this.orderNumber = orderNumber;
+//    }
+//
+//    public void setPizzaStringDescription(String pizzaStringDescription) {
+//        this.pizzaStringDescription = pizzaStringDescription;
+//    }
 
 
 
