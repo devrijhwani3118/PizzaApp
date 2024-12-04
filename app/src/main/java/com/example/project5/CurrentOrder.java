@@ -17,7 +17,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrentOrder extends AppCompatActivity {
+public class CurrentOrder extends AppCompatActivity implements OrderAdapter.OrderUpdateListener  {
 
     private RecyclerView currentOrdersRecyclerView;
     private OrderAdapter currentOrdersAdapter;
@@ -51,7 +51,9 @@ public class CurrentOrder extends AppCompatActivity {
 
         // Initialize Data
         currentOrders = getCurrentOrders();
-        currentOrdersAdapter = new OrderAdapter(currentOrders);
+        //currentOrdersAdapter = new OrderAdapter(currentOrders);
+        currentOrdersAdapter = new OrderAdapter(currentOrders, this);
+        currentOrdersRecyclerView.setAdapter(currentOrdersAdapter);
 
         if(PizzaSingleton.getOrderNumber()==0) PizzaSingleton.setOrderNumber(1);
         orderNumber=PizzaSingleton.getOrderNumber();
@@ -67,7 +69,9 @@ public class CurrentOrder extends AppCompatActivity {
 //                finish(); // Optional, if you don't want the user to return to this activity
             }
         });
+        PizzaSingleton.getInstance().setSubtotalPizzas(ZERO);
         recalculateTotals();
+
 
         // Set Adapter
         currentOrdersRecyclerView.setAdapter(currentOrdersAdapter);
@@ -105,51 +109,35 @@ public class CurrentOrder extends AppCompatActivity {
             return;
         }
 
-        // Add items to PizzaSingleton
-//        for (OrderView orderView : currentOrders) {
-//            if (!PizzaSingleton.getPizzasString().contains(orderView.getPizzaStringDescription())) {
-//                PizzaSingleton.getPizzasString().add(orderView.getPizzaStringDescription());
-//                PizzaSingleton.getPizzas().add(orderView.getPizza());
-//            }
-//        }
-
-        // Update order list and order number
-
-
         String order = "";
-        for(int i=0; i<PizzaSingleton.getInstance().getPizzasString().size(); i++){
-            order+=PizzaSingleton.getInstance().getPizzasString().get(i)+"\n";
+        for (int i = 0; i < PizzaSingleton.getInstance().getPizzasString().size(); i++) {
+            order += PizzaSingleton.getInstance().getPizzasString().get(i) + "\n";
         }
         PizzaSingleton.getInstance().getOrderList().add(order);
-
         PizzaSingleton.getInstance().getOrderNumberList().add(PizzaSingleton.getInstance().getOrderNumber());
         PizzaSingleton.getInstance().setOrderNumber(PizzaSingleton.getInstance().getOrderNumber() + 1);
 
-        for(int i=0; i<PizzaSingleton.getInstance().getOrderNumberList().size();i++){
-            Toast.makeText(this, "Number:"+PizzaSingleton.getInstance().getOrderNumberList().get(i), Toast.LENGTH_SHORT).show();
-        }
-
-
-
-        PizzaSingleton.getInstance().getOrders().add(new Order (PizzaSingleton.getInstance().getOrderNumber(), PizzaSingleton.getInstance().getPizzas()));
+        PizzaSingleton.getInstance().getOrders().add(new Order(PizzaSingleton.getInstance().getOrderNumber(), PizzaSingleton.getInstance().getPizzas()));
 
         // Clear current orders
         currentOrders.clear();
         currentOrdersAdapter.notifyDataSetChanged();
 
+        TextView orderNumberText = findViewById(R.id.order_number_int);
+        orderNumberText.setText(String.valueOf(PizzaSingleton.getInstance().getOrderNumber()));
+
+        // Reset pizzas in singleton
+        PizzaSingleton.getInstance().setPizzasString(new ArrayList<>());
+        PizzaSingleton.getInstance().setPizzas(new ArrayList<>());
+        PizzaSingleton.setSubtotalPizzas(0.0); // Reset subtotal
+
+        // Recalculate totals and update fields
+        recalculateTotals();
+
         // Show confirmation
         Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_SHORT).show();
-        PizzaSingleton.getInstance().setPizzasString(new ArrayList<String>());
-        PizzaSingleton.getInstance().setPizzas(new ArrayList<Pizza>());
-        // Recalculate totals
-        recalculateTotals();
-        PizzaSingleton.setSubtotalPizzas(0);
-        salesTaxPizzas = PizzaSingleton.getInstance().getSubtotalPizzas() * TAX;
-        totalCostPizzas = PizzaSingleton.getInstance().getSubtotalPizzas() + salesTaxPizzas;
-        subtotalField.setText(String.format("%.2f", PizzaSingleton.getInstance().getSubtotalPizzas()));
-        salesTaxField.setText(String.format("%.2f", salesTaxPizzas));
-        totalCostField.setText(String.format("%.2f", totalCostPizzas));
     }
+
 
     private void recalculateTotals() {
 //        subtotalPizzas = ZERO;
@@ -166,5 +154,8 @@ public class CurrentOrder extends AppCompatActivity {
         totalCostField.setText(String.format("%.2f", totalCostPizzas));
     }
 
-
+    public void onOrderUpdated() {
+        PizzaSingleton.setSubtotalPizzas(ZERO);
+        recalculateTotals();
+    }
 }
