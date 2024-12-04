@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,20 +24,26 @@ public class CurrentOrder extends AppCompatActivity {
     private int orderNumber;
 
     private List<OrderView> currentOrders; // Store current orders locally
-    private final int ZERO = 0;
-    private double subtotalPizzas = ZERO;
+    private static final int ZERO = 0;
+    private final int ONE =1;
     private double salesTaxPizzas = ZERO;
     private double totalCostPizzas = ZERO;
     private final double TAX = 0.06625;
 
     private Button backButton;
     private ImageView pizzaPicture;
+    private TextView totalCostField;
+    private TextView subtotalField;
+    private TextView salesTaxField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_order_page);
         backButton=findViewById(R.id.back_button_current_order);
+        subtotalField=findViewById(R.id.subtotalCurrentView2);
+        salesTaxField=findViewById(R.id.taxTotalCurrentView2);
+        totalCostField=findViewById(R.id.totalCurrentView2);
         // Initialize RecyclerView
         currentOrdersRecyclerView = findViewById(R.id.currentOrdersRecyclerView);
         currentOrdersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -59,6 +67,7 @@ public class CurrentOrder extends AppCompatActivity {
 //                finish(); // Optional, if you don't want the user to return to this activity
             }
         });
+        recalculateTotals();
 
         // Set Adapter
         currentOrdersRecyclerView.setAdapter(currentOrdersAdapter);
@@ -137,14 +146,19 @@ public class CurrentOrder extends AppCompatActivity {
     }
 
     private void recalculateTotals() {
-        subtotalPizzas = ZERO;
+//        subtotalPizzas = ZERO;
         salesTaxPizzas = ZERO;
         totalCostPizzas = ZERO;
 
         for (Pizza pizza : PizzaSingleton.getInstance().getPizzas()) {
-            subtotalPizzas += pizza.price();
+            PizzaSingleton.getInstance().setSubtotalPizzas(pizza.price()+PizzaSingleton.getInstance().getSubtotalPizzas());
         }
-        salesTaxPizzas = subtotalPizzas * TAX;
-        totalCostPizzas = subtotalPizzas + salesTaxPizzas;
+        salesTaxPizzas = PizzaSingleton.getInstance().getSubtotalPizzas() * TAX;
+        totalCostPizzas = PizzaSingleton.getInstance().getSubtotalPizzas() + salesTaxPizzas;
+        subtotalField.setText(String.format("%.2f", PizzaSingleton.getInstance().getSubtotalPizzas()));
+        salesTaxField.setText(String.format("%.2f", salesTaxPizzas));
+        totalCostField.setText(String.format("%.2f", totalCostPizzas));
     }
+
+
 }

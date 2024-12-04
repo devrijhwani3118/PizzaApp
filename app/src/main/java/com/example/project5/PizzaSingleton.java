@@ -16,6 +16,9 @@ public class PizzaSingleton {
     private static PizzaSingleton instance;
 
     private static ArrayList<String> pizzasString;//used to populate the listview of CurrentOrder | is the string format
+
+    private static final int ZERO=0;
+    private static double subtotalPizzas = ZERO;
     //for the order
     private static ArrayList<Pizza> pizzas;//is the pizza format of the order same as pizzasString | for CurrentOrder as well
     private static ArrayList<String> orderList;//total order list / store orders
@@ -25,6 +28,14 @@ public class PizzaSingleton {
 
     public static int getOrderNumber() {
         return orderNumber;
+    }
+
+    public static double getSubtotalPizzas() {
+        return subtotalPizzas;
+    }
+
+    public static void setSubtotalPizzas(double subtotalPizzas) {
+        PizzaSingleton.subtotalPizzas = subtotalPizzas;
     }
 
     public static void setOrderNumber(int orderNumber) {

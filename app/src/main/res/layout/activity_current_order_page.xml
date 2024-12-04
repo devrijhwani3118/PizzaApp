@@ -71,11 +71,81 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/currentOrdersRecyclerView"
-        android:layout_width="404dp"
-        android:layout_height="697dp"
+        android:layout_width="400dp"
+        android:layout_height="616dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.199" />
+
+    <TextView
+        android:id="@+id/subtotalCurrentView"
+        android:layout_width="82dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginBottom="132dp"
+        android:text="Subtotal:"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/taxTotalCurrentView"
+        android:layout_width="70dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginBottom="96dp"
+        android:text="Tax: "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/totalCurrentView"
+        android:layout_width="70dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginBottom="60dp"
+        android:text="Total: "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/subtotalCurrentView2"
+        android:layout_width="78dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="132dp"
+        android:text="TextView"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/taxTotalCurrentView2"
+        android:layout_width="76dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="100dp"
+        android:text="TextView"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/totalCurrentView2"
+        android:layout_width="78dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="60dp"
+        android:text="TextView"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

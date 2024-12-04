@@ -47,68 +47,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tax2"
-        android:layout_width="45dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:text="@string/txt"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subtotal2" />
-
-    <TextView
         android:id="@+id/subtotal2"
-        android:layout_width="45dp"
+        android:layout_width="58dp"
         android:layout_height="23dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/txt"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tax"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:text="@string/tax"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/tax2"
-        app:layout_constraintTop_toBottomOf="@+id/subtotal" />
 
     <TextView
         android:id="@+id/subtotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="48dp"
-        android:text="@string/subtotal_colon"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="80dp"
+        android:text="Price:"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="4dp"
-        android:text="@string/total_colon"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/total2"
-        app:layout_constraintTop_toBottomOf="@+id/tax" />
-
-    <TextView
-        android:id="@+id/total2"
-        android:layout_width="48dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="4dp"
-        android:text="txt"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tax2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
