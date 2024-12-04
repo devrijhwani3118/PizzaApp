@@ -71,9 +71,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             }
             salesTaxPizzas = PizzaSingleton.getInstance().getSubtotalPizzas() * TAX;
             totalCostPizzas = PizzaSingleton.getInstance().getSubtotalPizzas() + salesTaxPizzas;
-            holder.subtotalField.setText(String.format("%.2f", PizzaSingleton.getInstance().getSubtotalPizzas()));
-            holder.salesTaxField.setText(String.format("%.2f", salesTaxPizzas));
-            holder.totalCostField.setText(String.format("%.2f", totalCostPizzas));
+//            holder.subtotalField.setText(String.format("%.2f", PizzaSingleton.getInstance().getSubtotalPizzas()));
+//            holder.salesTaxField.setText(String.format("%.2f", salesTaxPizzas));
+//            holder.totalCostField.setText(String.format("%.2f", totalCostPizzas));
         });
 
     }

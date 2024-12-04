@@ -143,6 +143,12 @@ public class CurrentOrder extends AppCompatActivity {
         PizzaSingleton.getInstance().setPizzas(new ArrayList<Pizza>());
         // Recalculate totals
         recalculateTotals();
+        PizzaSingleton.setSubtotalPizzas(0);
+        salesTaxPizzas = PizzaSingleton.getInstance().getSubtotalPizzas() * TAX;
+        totalCostPizzas = PizzaSingleton.getInstance().getSubtotalPizzas() + salesTaxPizzas;
+        subtotalField.setText(String.format("%.2f", PizzaSingleton.getInstance().getSubtotalPizzas()));
+        salesTaxField.setText(String.format("%.2f", salesTaxPizzas));
+        totalCostField.setText(String.format("%.2f", totalCostPizzas));
     }
 
     private void recalculateTotals() {

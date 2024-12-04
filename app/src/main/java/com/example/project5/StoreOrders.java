@@ -19,13 +19,16 @@ import java.util.ArrayList;
 
 public class StoreOrders extends AppCompatActivity {
 
-    private static final int NOT_FOUND = -1;
-    private static final double TAX = 0.06625;
     private Spinner orderNumberSpinner;
     private ListView orderListView;
     private TextView orderTotalWithTax;
     private Button cancelButton;
     private Button backButton;
+
+    private static final int NOT_FOUND = -1;
+    private static int orderNumber = 0;
+    private final int ZERO=0;
+    private final double TAX=0.06625;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class StoreOrders extends AppCompatActivity {
         // Initialize UI components
         orderNumberSpinner = findViewById(R.id.spinner);
         orderListView = findViewById(R.id.listView);
-        orderTotalWithTax = findViewById(R.id.priceWordTextViewStoreOrders);
+        orderTotalWithTax = findViewById(R.id.priceWordTextViewStoreOrders2);
         cancelButton = findViewById(R.id.cancelOrderStoreOrders);
         backButton = findViewById(R.id.back_button_store_orders);
 
@@ -60,6 +63,18 @@ public class StoreOrders extends AppCompatActivity {
 //                finish(); // Optional, if you don't want the user to return to this activity
             }
         });
+    }
+
+    private void calculateTotalCost(ArrayList<String> orderItems) {
+        double subtotalPizzas=0;
+        for(int i = 0; i < orderItems.size(); i++) {
+            String order=orderItems.get(i);
+            String money=order.substring(order.indexOf("$")+1);
+            subtotalPizzas += Double.parseDouble(money);
+        }
+        double salesTaxPizzas = subtotalPizzas * TAX;
+        double totalCostPizzas = subtotalPizzas + salesTaxPizzas;
+        orderTotalWithTax.setText(String.format("%.2f", totalCostPizzas));
     }
 
     private void initializeOrders() {
@@ -105,21 +120,14 @@ public class StoreOrders extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
         orderListView.setAdapter(adapter);
 
+        ArrayList orderItems = new ArrayList();
+        for (String item : items) {
+            orderItems.add(item);
+        }
+        calculateTotalCost(orderItems);
+
         // Calculate and display the total cost
         //calculateTotalCost(items);
-    }
-
-    private void calculateTotalCost(String[] orderItems) {
-        double subtotal = 0;
-
-        for (String order : orderItems) {
-            String money = order.substring(order.indexOf("$") + 1);
-            subtotal += Double.parseDouble(money);
-        }
-
-        double salesTax = subtotal * TAX;
-        double totalCost = subtotal + salesTax;
-        orderTotalWithTax.setText(String.format("$%.2f", totalCost));
     }
 
     private void cancelOrder() {
