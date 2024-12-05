@@ -31,28 +31,32 @@ public class CurrentOrder extends AppCompatActivity implements OrderAdapter.Orde
     private final double TAX = 0.06625;
 
     private Button backButton;
+    private Button clearOrderButton;
     private ImageView pizzaPicture;
     private TextView totalCostField;
     private TextView subtotalField;
     private TextView salesTaxField;
+    private Button addToOrderButton;
+    private TextView orderNumberText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_order_page);
-        backButton=findViewById(R.id.back_button_current_order);
-        subtotalField=findViewById(R.id.subtotalCurrentView2);
-        salesTaxField=findViewById(R.id.taxTotalCurrentView2);
-        totalCostField=findViewById(R.id.totalCurrentView2);
-        currentOrdersRecyclerView = findViewById(R.id.currentOrdersRecyclerView);
+        setIDs();
         currentOrdersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         currentOrders = getCurrentOrders();
         currentOrdersAdapter = new OrderAdapter(currentOrders, this);
         currentOrdersRecyclerView.setAdapter(currentOrdersAdapter);
         if(PizzaSingleton.getOrderNumber()==0) PizzaSingleton.setOrderNumber(1);
         orderNumber=PizzaSingleton.getOrderNumber();
-        TextView orderNumberText = findViewById(R.id.order_number_int);
         orderNumberText.setText(String.valueOf(orderNumber));
+        clearOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearingOrder();
+            }
+        });
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,8 +67,29 @@ public class CurrentOrder extends AppCompatActivity implements OrderAdapter.Orde
         PizzaSingleton.getInstance().setSubtotalPizzas(ZERO);
         recalculateTotals();
         currentOrdersRecyclerView.setAdapter(currentOrdersAdapter);
-        Button addToOrderButton = findViewById(R.id.add_to_order_button);
         addToOrderButton.setOnClickListener(v -> addAllItemsToOrder());
+    }
+
+    private void setIDs(){
+        backButton=findViewById(R.id.back_button_current_order);
+        subtotalField=findViewById(R.id.subtotalCurrentView2);
+        salesTaxField=findViewById(R.id.taxTotalCurrentView2);
+        totalCostField=findViewById(R.id.totalCurrentView2);
+        clearOrderButton = findViewById(R.id.clear_orders_current_order);
+        currentOrdersRecyclerView = findViewById(R.id.currentOrdersRecyclerView);
+        addToOrderButton = findViewById(R.id.add_to_order_button);
+        orderNumberText = findViewById(R.id.order_number_int);
+    }
+
+    private void clearingOrder(){
+        PizzaSingleton.setSubtotalPizzas(ZERO);
+        PizzaSingleton.setPizzasString(new ArrayList<String>());
+        PizzaSingleton.setPizzas(new ArrayList<Pizza>());
+        if(currentOrders.isEmpty()) Toast.makeText(this, "No items to clear!", Toast.LENGTH_SHORT).show();
+        else Toast.makeText(this, "Items cleared!", Toast.LENGTH_SHORT).show();
+        currentOrders.clear();
+        currentOrdersAdapter.notifyDataSetChanged();
+        recalculateTotals();
     }
 
     private List<OrderView> getCurrentOrders() {
@@ -75,7 +100,6 @@ public class CurrentOrder extends AppCompatActivity implements OrderAdapter.Orde
         for (int i = 0; i < pizzas.size(); i++) {
             Pizza pizza = pizzas.get(i);
             String pizzaString = pizzaStrings.get(i);
-
             orders.add(new OrderView(pizza.price(), pizzaString));
         }
         return orders;
@@ -112,9 +136,9 @@ public class CurrentOrder extends AppCompatActivity implements OrderAdapter.Orde
         }
         salesTaxPizzas = PizzaSingleton.getInstance().getSubtotalPizzas() * TAX;
         totalCostPizzas = PizzaSingleton.getInstance().getSubtotalPizzas() + salesTaxPizzas;
-        subtotalField.setText(String.format("%.2f", PizzaSingleton.getInstance().getSubtotalPizzas()));
-        salesTaxField.setText(String.format("%.2f", salesTaxPizzas));
-        totalCostField.setText(String.format("%.2f", totalCostPizzas));
+        subtotalField.setText(String.format("$%.2f", PizzaSingleton.getInstance().getSubtotalPizzas()));
+        salesTaxField.setText(String.format("$%.2f", salesTaxPizzas));
+        totalCostField.setText(String.format("$%.2f", totalCostPizzas));
     }
 
     public void onOrderUpdated() {

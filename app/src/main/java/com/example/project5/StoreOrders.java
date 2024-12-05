@@ -65,7 +65,7 @@ public class StoreOrders extends AppCompatActivity {
         }
         double salesTaxPizzas = subtotalPizzas * TAX;
         double totalCostPizzas = subtotalPizzas + salesTaxPizzas;
-        orderTotalWithTax.setText(String.format("%.2f", totalCostPizzas));
+        orderTotalWithTax.setText(String.format("$%.2f", totalCostPizzas));
     }
 
     private void initializeOrders() {
