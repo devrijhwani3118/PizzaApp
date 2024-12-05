@@ -14,12 +14,13 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="84dp"
         android:fontFamily="@font/biryani_bold"
-        android:text="Store Orders"
+        android:text="@string/store_orders"
         android:textAlignment="center"
         android:textColor="#33116A"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck" />
 
     <ListView
         android:id="@+id/listView"
@@ -37,7 +38,7 @@
         android:layout_height="67dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="8dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -47,7 +48,7 @@
         android:layout_height="67dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Back"
+        android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -57,7 +58,7 @@
         android:layout_height="32dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="96dp"
-        android:text="Price:"
+        android:text="@string/price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,7 +68,7 @@
         android:layout_height="29dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="12dp"
-        android:text="textview"
+        android:text="@string/textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -14,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="8dp"
-        android:text="Back"
-        android:textSize="18dp"
+        android:text="@string/back"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -26,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:fontFamily="@font/biryani_bold"
-        android:text="Topping Menu"
+        android:text="@string/topping_menu_activity"
         android:textColor="#33116A"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"

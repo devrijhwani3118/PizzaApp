@@ -174,79 +174,79 @@
             android:id="@+id/chipBBQChicken"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BBQ CHICKEN" />
+            android:text="@string/bbq_chicken" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipProvolone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PROVOLONE" />
+            android:text="@string/provolone" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipCheddar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CHEDDAR" />
+            android:text="@string/cheddar" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipBeef"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BEEF" />
+            android:text="@string/beef" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipHam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HAM" />
+            android:text="@string/ham" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipPineapple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PINEAPPLE" />
+            android:text="@string/pineapple" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipOlives"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OLIVES" />
+            android:text="@string/olives" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipSpinach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SPINACH" />
+            android:text="@string/spinach" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipSausage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SAUSAGE" />
+            android:text="@string/sausage" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipPepperoni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PEPPERONI" />
+            android:text="@string/pepperoni" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipGreenPepper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GREEN PEPPER" />
+            android:text="@string/green_pepper" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipOnion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ONION" />
+            android:text="@string/onion" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipMushroom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MUSHROOM" />
+            android:text="@string/mushroom" />
 
     </com.google.android.material.chip.ChipGroup>
 

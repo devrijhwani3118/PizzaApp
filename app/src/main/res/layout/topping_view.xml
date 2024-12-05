@@ -22,7 +22,7 @@
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="Topping Name"
+        android:text="@string/topping_name"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageViewTopping"

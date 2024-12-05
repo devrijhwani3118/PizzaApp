@@ -39,4 +39,21 @@
     <string name="small">Small</string>
     <string name="medium">Medium</string>
     <string name="large">Large</string>
+    <string name="bbq_chicken">BBQ CHICKEN</string>
+    <string name="provolone">PROVOLONE</string>
+    <string name="cheddar">CHEDDAR</string>
+    <string name="beef">BEEF</string>
+    <string name="ham">HAM</string>
+    <string name="pineapple">PINEAPPLE</string>
+    <string name="olives">OLIVES</string>
+    <string name="spinach">SPINACH</string>
+    <string name="sausage">SAUSAGE</string>
+    <string name="pepperoni">PEPPERONI</string>
+    <string name="green_pepper">GREEN PEPPER</string>
+    <string name="onion">ONION</string>
+    <string name="mushroom">MUSHROOM</string>
+    <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+    <string name="topping_menu_activity">Topping Menu</string>
+    <string name="topping_name">Topping Name</string>
 </resources>
