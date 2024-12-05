@@ -23,7 +23,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class OrderPage extends AppCompatActivity {
-    private final double basePrice = 8.99;
+    private final double EIGHT_NINE_NINE = 8.99;
+    private final double TEN_NINE_NINE=10.99;
+    private final double TWELVE_NINE_NINE=12.99;
+    private final double TOPPING_COST = 1.69;
+    private final double NINETEEN_NINE_NINE=19.99;
+    private final double TWENTY_NINE_NINE=20.99;
+    private final double FOURTEEN_NINE_NINE=14.99;
+    private final double SIXTEEN_NINE_NINE=16.99;
+    private final double SEVENTEEN_NINE_NINE=17.99;
+    private final double EIGHTEEN_NINE_NINE=18.99;
+    private final double TWENTYONE_NINE_NINE=21.99;
+
     private double pizzaCost = 0;
     private final String[] allToppings = {"Sausage", "Pepperoni", "Green Pepper", "Onion", "Mushroom", "BBQ Chicken", "Provolone", "Cheddar", "Beef", "Ham"};
     private final Set<String> deluxeToppings = new HashSet<>(Arrays.asList("Sausage", "Pepperoni", "Green Pepper", "Onion", "Mushroom"));
@@ -340,24 +351,24 @@ public class OrderPage extends AppCompatActivity {
 
     private void updatePizzaPrice() {
         String selectedPizza = pizzaTypeSpinner.getSelectedItem().toString();
-        double price = basePrice;
+        double price = EIGHT_NINE_NINE;
         switch (selectedPizza) {
             case "Build Your Own":
-                price = smallRadioButton.isChecked() ? 8.99 :
-                        mediumRadioButton.isChecked() ? 10.99 : 12.99;
-                price += (selectedToppingsCount * 1.69);
+                price = smallRadioButton.isChecked() ? EIGHT_NINE_NINE :
+                        mediumRadioButton.isChecked() ? TEN_NINE_NINE : TWELVE_NINE_NINE;
+                price += (selectedToppingsCount * TOPPING_COST);
                 break;
             case "Deluxe":
-                price = smallRadioButton.isChecked() ? 16.99 :
-                        mediumRadioButton.isChecked() ? 18.99 : 20.99;
+                price = smallRadioButton.isChecked() ? SIXTEEN_NINE_NINE :
+                        mediumRadioButton.isChecked() ? EIGHTEEN_NINE_NINE : TWENTY_NINE_NINE;
                 break;
             case "Meatzza":
-                price = smallRadioButton.isChecked() ? 17.99 :
-                        mediumRadioButton.isChecked() ? 19.99 : 21.99;
+                price = smallRadioButton.isChecked() ? SEVENTEEN_NINE_NINE :
+                        mediumRadioButton.isChecked() ? NINETEEN_NINE_NINE : TWENTYONE_NINE_NINE;
                 break;
             case "BBQ Chicken":
-                price = smallRadioButton.isChecked() ? 14.99 :
-                        mediumRadioButton.isChecked() ? 16.99 : 19.99;
+                price = smallRadioButton.isChecked() ? FOURTEEN_NINE_NINE :
+                        mediumRadioButton.isChecked() ? SIXTEEN_NINE_NINE : NINETEEN_NINE_NINE;
                 break;
             default:
                 break;

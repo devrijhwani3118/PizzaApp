@@ -49,7 +49,7 @@ public class CurrentOrder extends AppCompatActivity implements OrderAdapter.Orde
         currentOrders = getCurrentOrders();
         currentOrdersAdapter = new OrderAdapter(currentOrders, this);
         currentOrdersRecyclerView.setAdapter(currentOrdersAdapter);
-        if(PizzaSingleton.getOrderNumber()==0) PizzaSingleton.setOrderNumber(1);
+        if(PizzaSingleton.getOrderNumber()==0) PizzaSingleton.setOrderNumber(ONE);
         orderNumber=PizzaSingleton.getOrderNumber();
         orderNumberText.setText(String.valueOf(orderNumber));
         clearOrderButton.setOnClickListener(new View.OnClickListener() {

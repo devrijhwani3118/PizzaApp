@@ -18,6 +18,7 @@ public class PizzaSingleton {
     private static ArrayList<String> pizzasString;
 
     private static final int ZERO=0;
+    private static final int ONE=1;
     private static double subtotalPizzas = ZERO;
     //for the order
     private static ArrayList<Pizza> pizzas;
@@ -48,7 +49,7 @@ public class PizzaSingleton {
         orderNumberList = new ArrayList<>();
         pizzas = new ArrayList<>();
         orders = new ArrayList<>();
-        orderNumber=1;
+        orderNumber=ONE;
 
     }
 
