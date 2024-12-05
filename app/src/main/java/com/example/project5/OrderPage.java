@@ -23,10 +23,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class OrderPage extends AppCompatActivity {
-
     private final double basePrice = 8.99;
     private double pizzaCost = 0;
-
     private final String[] allToppings = {"Sausage", "Pepperoni", "Green Pepper", "Onion", "Mushroom", "BBQ Chicken", "Provolone", "Cheddar", "Beef", "Ham"};
     private final Set<String> deluxeToppings = new HashSet<>(Arrays.asList("Sausage", "Pepperoni", "Green Pepper", "Onion", "Mushroom"));
     private final Set<String> bbqToppings = new HashSet<>(Arrays.asList("BBQ Chicken", "Green Pepper", "Provolone", "Cheddar"));
@@ -64,11 +62,7 @@ public class OrderPage extends AppCompatActivity {
     private Button backButton;
     private Button orderButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_page);
-
+    private void setID(){
         pizzaStyleSpinner = findViewById(R.id.typeOfPizzaSpinner);
         pizzaTypeSpinner = findViewById(R.id.typepizzaChoiceSpinner);
         radioGroup = findViewById(R.id.radioGroup);
@@ -91,31 +85,10 @@ public class OrderPage extends AppCompatActivity {
         pizzaPicture=findViewById(R.id.imageView);
         backButton=findViewById(R.id.back_button);
         orderButton=findViewById(R.id.order_button);
-
-
         smallRadioButton.setChecked(true);
-        clearAllChipColor();
-        setupChipClickListeners();
-        ArrayAdapter<String> pizzaTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"ChicagoPizza", "NYPizza"});
-        pizzaTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        pizzaStyleSpinner.setAdapter(pizzaTypeAdapter);
+    }
 
-        ArrayAdapter<String> pizzaChoiceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"Build Your Own", "Deluxe", "Meatzza", "BBQ Chicken"});
-        pizzaChoiceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        pizzaTypeSpinner.setAdapter(pizzaChoiceAdapter);
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> updatePizzaPrice());
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an intent to navigate back to MainActivity
-                Intent intent = new Intent(OrderPage.this, MainActivity.class);
-                startActivity(intent);
-//                finish(); // Optional, if you don't want the user to return to this activity
-            }
-        });
-
-
+    private void setUpSpinners(){
         pizzaStyleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -126,12 +99,10 @@ public class OrderPage extends AppCompatActivity {
                 pizzaPicture.setImageResource(pizzaImage);
                 updatePizzaPrice();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
-
         pizzaTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -149,15 +120,40 @@ public class OrderPage extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_page);
+        setID();
+        clearAllChipColor();
+        setupChipClickListeners();
+        ArrayAdapter<String> pizzaTypeAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, new String[]{"ChicagoPizza", "NYPizza"});
+        pizzaTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        pizzaStyleSpinner.setAdapter(pizzaTypeAdapter);
+        ArrayAdapter<String> pizzaChoiceAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, new String[]
+                {"Build Your Own", "Deluxe", "Meatzza", "BBQ Chicken"});
+        pizzaChoiceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        pizzaTypeSpinner.setAdapter(pizzaChoiceAdapter);
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> updatePizzaPrice());
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderPage.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        setUpSpinners();
         orderButton.setOnClickListener(v -> {
             createAndSavePizza();
             Intent intent = new Intent(OrderPage.this, CurrentOrder.class);
             startActivity(intent);
         });
-
     }
-//"Build Your Own", "Deluxe", "Meatzza", "BBQ Chicken"
+
     private int getImage(String pizzaStyle, String pizzaType) {
         if(pizzaStyle.equals("ChicagoPizza")){
             if(pizzaType.equalsIgnoreCase("Build Your Own")){
@@ -192,31 +188,25 @@ public class OrderPage extends AppCompatActivity {
     private void clearAllChipColor() {
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
-            chip.setChipBackgroundColorResource(android.R.color.white); // Reset to default color
+            chip.setChipBackgroundColorResource(android.R.color.white);
         }
     }
 
     private void setupChipClickListeners() {
-        // Set up click listeners for each chip inside the ChipGroup
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
             chip.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Chip clickedChip = (Chip) v;
-//                    clickedChip.isChecked();
-                    //clearAllChipColor();
-                    // If the pizza choice is "Build Your Own", handle topping selection
                     if(pizzaTypeSpinner.getSelectedItem().toString().equals("Build Your Own")) {
                         if (!clickedChip.isSelected()) {
-                            // If the chip is selected, change its color and update the topping count
                             clickedChip.setSelected(true);
                             clickedChip.setChipBackgroundColorResource(android.R.color.holo_purple);
-                            handleToppingSelection(clickedChip, true);  // Increase count when selected
+                            handleToppingSelection(clickedChip, true);
                         } else {
-                            // If the chip is unselected, revert its color and update the topping count
                             clickedChip.setChipBackgroundColorResource(android.R.color.white);
-                            handleToppingSelection(clickedChip, false);  // Decrease count when unselected
+                            handleToppingSelection(clickedChip, false);
                             clickedChip.setSelected(false);
                         }
                     }
@@ -228,13 +218,11 @@ public class OrderPage extends AppCompatActivity {
     private void handleToppingSelection(Chip chip, boolean isSelected) {
         if (isSelected) {
             selectedToppingsCount++;
-            // Disable other chips if the limit is reached
             if (selectedToppingsCount >= MAX_TOPPINGS) {
                 disableUncheckedChips();
             }
         } else {
             selectedToppingsCount--;
-            // Enable chips if the limit is no longer reached
             if (selectedToppingsCount < MAX_TOPPINGS) {
                 enableUnselectedChips();
             }
@@ -242,16 +230,8 @@ public class OrderPage extends AppCompatActivity {
         updatePizzaPrice();
     }
 
-
-//    private void changeChipColor(Chip clickedChip) {
-//        clickedChip.setChipBackgroundColorResource(android.R.color.holo_blue_light); // Set your desired color
-//    }
-
     private void updateToppingChips(String selectedPizza) {
         Set<String> enabledToppings = new HashSet<>();
-//        clearAllChipColor();
-//        enableAllChips();
-//        selectedToppingsCount=0;
         if ("Deluxe".equals(selectedPizza)) {
             enabledToppings = deluxeToppings;
             enableDeluxeTopping(enabledToppings);
@@ -269,9 +249,6 @@ public class OrderPage extends AppCompatActivity {
         }
 
     }
-
-    //
-//    private final Set<String> deluxeToppings = new HashSet<>(Arrays.asList("Sausage", "Pepperoni", "Green Pepper", "Onion", "Mushroom"));
     private void enableMeatzzaTopping(Set<String> enabledToppings) {
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
@@ -279,7 +256,8 @@ public class OrderPage extends AppCompatActivity {
         }
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
-            if (chip.equals(sausage) || chip.equals(pepperoni) || chip.equals(beef) || chip.equals(ham)) {
+            if (chip.equals(sausage) || chip.equals(pepperoni) || chip.equals(beef)
+                    || chip.equals(ham)) {
                 chip.setEnabled(true);
                 chip.setChipBackgroundColorResource(android.R.color.holo_purple);
             } else chip.setEnabled(false);
@@ -293,7 +271,8 @@ public class OrderPage extends AppCompatActivity {
         }
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
-            if (chip.equals(bbqChicken) || chip.equals(greenPepper) || chip.equals(provolone) || chip.equals(cheddar)) {
+            if (chip.equals(bbqChicken) || chip.equals(greenPepper) || chip.equals(provolone) ||
+                    chip.equals(cheddar)) {
                 chip.setEnabled(true);
                 chip.setChipBackgroundColorResource(android.R.color.holo_purple);
             } else chip.setEnabled(false);
@@ -307,7 +286,8 @@ public class OrderPage extends AppCompatActivity {
         }
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
-            if (chip.equals(sausage) || chip.equals(pepperoni) || chip.equals(greenPepper) || chip.equals(onion) || chip.equals(mushroom)) {
+            if (chip.equals(sausage) || chip.equals(pepperoni) || chip.equals(greenPepper)
+                    || chip.equals(onion) || chip.equals(mushroom)) {
                 chip.setEnabled(true);
                 chip.setChipBackgroundColorResource(android.R.color.holo_purple);
             } else chip.setEnabled(false);
@@ -334,7 +314,6 @@ public class OrderPage extends AppCompatActivity {
         }
     }
 
-
     private void disableUncheckedChips() {
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             Chip chip = (Chip) chipGroup.getChildAt(i);
@@ -354,7 +333,7 @@ public class OrderPage extends AppCompatActivity {
         } else if (pizzaChoice.equals("Meatzza")) {
             crustTextView.setText(pizzaType.equals("ChicagoPizza") ? "Stuffed" : "Hand Tossed");
         } else {
-            crustTextView.setText(""); // Clear text if no valid selection
+            crustTextView.setText("");
         }
         crustTextView.setEnabled(false);
     }
@@ -362,8 +341,6 @@ public class OrderPage extends AppCompatActivity {
     private void updatePizzaPrice() {
         String selectedPizza = pizzaTypeSpinner.getSelectedItem().toString();
         double price = basePrice;
-
-        // Determine base price based on pizza type and size
         switch (selectedPizza) {
             case "Build Your Own":
                 price = smallRadioButton.isChecked() ? 8.99 :
@@ -385,43 +362,16 @@ public class OrderPage extends AppCompatActivity {
             default:
                 break;
         }
-
-        // Update the TextView with formatted price
         pizzaPrice.setText(String.format("$%.2f", price));
     }
 
-    private void createAndSavePizza() {
-        // Determine the selected crust and size
-        String crustType = crustTextView.getText().toString();
-        Crust crust = Crust.valueOf(crustType.toUpperCase().replace(" ", "_")); // Adjust if Crust enum naming differs
-
-        Size size;
-        if (smallRadioButton.isChecked()) {
-            size = Size.SMALL;
-        } else if (mediumRadioButton.isChecked()) {
-            size = Size.MEDIUM;
-        } else {
-            size = Size.LARGE;
-        }
-        String pizzaToStringType = "";
-
-        String pizzaStyle = pizzaStyleSpinner.getSelectedItem().toString();
-        String pizzaType = pizzaTypeSpinner.getSelectedItem().toString();
+    private Pizza typePizza( String pizzaStyle, String pizzaType, Size size){
         Pizza pizza;
         if(pizzaStyle.equals("NYPizza")){
-            if(pizzaType.equals("Deluxe")){
-                pizza = new NYPizza().createDeluxe(size);
-                pizzaToStringType = "New York Style-Brooklyn";
-            }
-            else if(pizzaType.equals("BBQ Chicken")){
-                pizza = new NYPizza().createBBQChicken(size);
-                pizzaToStringType = "New York Style-Thin";
-
-            }
-            else if (pizzaType.equals("Meatzza")){
-                pizza = new NYPizza().createMeatzza(size);
-                pizzaToStringType = "New York Style-HandTossed";
-            } else{
+            if(pizzaType.equals("Deluxe")) pizza = new NYPizza().createDeluxe(size);
+             else if(pizzaType.equals("BBQ Chicken")) pizza = new NYPizza().createBBQChicken(size);
+             else if (pizzaType.equals("Meatzza")) pizza = new NYPizza().createMeatzza(size);
+             else{
                 pizza = new NYPizza().createBuildYourOwn(size);
                 for (int i = 0; i < chipGroup.getChildCount(); i++) {
                     Chip chip = (Chip) chipGroup.getChildAt(i);
@@ -430,22 +380,12 @@ public class OrderPage extends AppCompatActivity {
                         pizza.addTopping(topping);
                     }
                 }
-                pizzaToStringType = "New York Style-HandTossed";
             }
         } else{
-            if(pizzaType.equals("Deluxe")){
-                pizza = new ChicagoPizza().createDeluxe(size);
-                pizzaToStringType = "Chicago Style-Deep Dish";
-            }
-            else if(pizzaType.equals("BBQ Chicken")){
-                pizzaToStringType = "Chicago Style-Pan";
-                pizza = new ChicagoPizza().createBBQChicken(size);
-
-            }
-            else if (pizzaType.equals("Meatzza")){
-                pizzaToStringType = "Chicago Style-Stuffed";
-                pizza = new ChicagoPizza().createMeatzza(size);
-            } else{
+            if(pizzaType.equals("Deluxe")) pizza = new ChicagoPizza().createDeluxe(size);
+            else if(pizzaType.equals("BBQ Chicken")) pizza = new ChicagoPizza().createBBQChicken(size);
+             else if (pizzaType.equals("Meatzza")) pizza = new ChicagoPizza().createMeatzza(size);
+             else{
                 pizza = new ChicagoPizza().createBuildYourOwn(size);
                 for (int i = 0; i < chipGroup.getChildCount(); i++) {
                     Chip chip = (Chip) chipGroup.getChildAt(i);
@@ -455,17 +395,49 @@ public class OrderPage extends AppCompatActivity {
                     }
                 }
             }
-            pizzaToStringType = "Chicago Style-Pan";
         }
+        return pizza;
+    }
+
+    private String pizzaStringCreator( String pizzaStyle, String pizzaType){
+        String pizzaToStringType;
+        if(pizzaStyle.equals("NYPizza")){
+            if(pizzaType.equals("Deluxe")) pizzaToStringType = "New York Style-Brooklyn";
+            else if(pizzaType.equals("BBQ Chicken")) pizzaToStringType = "New York Style-Thin";
+            else if (pizzaType.equals("Meatzza"))  pizzaToStringType = "New York Style-HandTossed";
+            else{ pizzaToStringType = "New York Style-HandTossed";}
+        } else {
+            if (pizzaType.equals("Deluxe")) pizzaToStringType = "Chicago Style-Deep Dish";
+
+            else if (pizzaType.equals("BBQ Chicken"))
+                pizzaToStringType = "Chicago Style-Pan";
+            else if (pizzaType.equals("Meatzza")) pizzaToStringType = "Chicago Style-Stuffed";
+            else pizzaToStringType = "Chicago Style-Pan";
+        }
+        return pizzaToStringType;
+    }
+
+    private void createAndSavePizza() {
+        String crustType = crustTextView.getText().toString();
+        Crust crust = Crust.valueOf(crustType.toUpperCase().replace(" ", "_"));
+        Size size;
+        if (smallRadioButton.isChecked()) {
+            size = Size.SMALL;
+        } else if (mediumRadioButton.isChecked()) {
+            size = Size.MEDIUM;
+        } else {
+            size = Size.LARGE;
+        }
+        String pizzaStyle = pizzaStyleSpinner.getSelectedItem().toString();
+        String pizzaType = pizzaTypeSpinner.getSelectedItem().toString();
+        Pizza pizza = typePizza(pizzaStyle, pizzaType, size);
+        String pizzaToStringType = pizzaStringCreator(pizzaStyle,pizzaType);
         String pizzaString = pizzaTypeSpinner.getSelectedItem().toString() + " (" + pizzaToStringType + ")" +
                 ", " + pizza.getToppings() + ", " + size.toString() + ", "  + pizzaPrice.getText();
-
-        // Save to singleton
         PizzaSingleton.getInstance().getPizzas().add(pizza);
         PizzaSingleton.getInstance().getPizzasString().add(pizzaString);
-//        PizzaSingleton.getInstance().setOrderNumber(PizzaSingleton.getInstance().getOrderNumber()+1);
-//        PizzaSingleton.getInstance().getOrderNumberList().add(PizzaSingleton.getInstance().getOrderNumber());
-        Toast.makeText(this, "Pizza Added to Current Orders!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Pizza Added to Current Orders!",
+                Toast.LENGTH_SHORT).show();
     }
 
     public Topping getSelectedToppings(String chipString) {

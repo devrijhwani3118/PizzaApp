@@ -35,32 +35,23 @@ public class StoreOrders extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_store_orders);
-
-        // Adjust window insets for edge-to-edge
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        // Initialize UI components
         orderNumberSpinner = findViewById(R.id.spinner);
         orderListView = findViewById(R.id.listView);
         orderTotalWithTax = findViewById(R.id.priceWordTextViewStoreOrders2);
         cancelButton = findViewById(R.id.cancelOrderStoreOrders);
         backButton = findViewById(R.id.back_button_store_orders);
-
-        // Setup and populate views
         initializeOrders();
         setupListeners();
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an intent to navigate back to MainActivity
                 Intent intent = new Intent(StoreOrders.this, MainActivity.class);
                 startActivity(intent);
-//                finish(); // Optional, if you don't want the user to return to this activity
             }
         });
     }
@@ -78,7 +69,8 @@ public class StoreOrders extends AppCompatActivity {
     }
 
     private void initializeOrders() {
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, PizzaSingleton.getInstance().getOrderNumberList());
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, PizzaSingleton.getInstance().getOrderNumberList());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         orderNumberSpinner.setAdapter(adapter);
 
@@ -91,7 +83,6 @@ public class StoreOrders extends AppCompatActivity {
 
     private void setupListeners() {
         cancelButton.setOnClickListener(view -> cancelOrder());
-
         orderNumberSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -100,7 +91,6 @@ public class StoreOrders extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Handle the case where nothing is selected, if necessary
             }
         });
     }
@@ -111,23 +101,16 @@ public class StoreOrders extends AppCompatActivity {
         if (selectedOrderIndex == NOT_FOUND) {
             return;
         }
-
         ArrayList<String> orderList = PizzaSingleton.getOrderList();
         String selectedOrderDetails = orderList.get(selectedOrderIndex);
-
-        // Populate the ListView with order items
         String[] items = selectedOrderDetails.split("\n");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
         orderListView.setAdapter(adapter);
-
         ArrayList orderItems = new ArrayList();
         for (String item : items) {
             orderItems.add(item);
         }
         calculateTotalCost(orderItems);
-
-        // Calculate and display the total cost
-        //calculateTotalCost(items);
     }
 
     private void cancelOrder() {
@@ -136,17 +119,13 @@ public class StoreOrders extends AppCompatActivity {
             showAlert("No Order Selected", "Please select an order to cancel.");
             return;
         }
-
         ArrayList<Integer> orderNumbers = PizzaSingleton.getOrderNumberList();
         ArrayList<String> orderList = PizzaSingleton.getOrderList();
-
-        // Remove the order and update the views
         orderNumbers.remove(selectedOrderIndex);
         orderList.remove(selectedOrderIndex);
         initializeOrders();
         orderListView.setAdapter(null);
         orderTotalWithTax.setText("");
-
         showAlert("Order Canceled", "The selected order has been successfully canceled.");
     }
 

@@ -16,6 +16,9 @@
             android:name=".StoreOrders"
             android:exported="false" />
         <activity
+            android:name=".ToppingMenu"
+            android:exported="false" />
+        <activity
             android:name=".OrderPage"
             android:exported="false" />
         <activity

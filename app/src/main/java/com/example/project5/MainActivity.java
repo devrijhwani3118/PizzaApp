@@ -19,50 +19,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        
         setContentView(R.layout.activity_main);
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         mainPizzaPicture=findViewById(R.id.imageView4);
         int pizzaImage= R.drawable.pizza_chef;
         mainPizzaPicture.setImageResource(pizzaImage);
-
         Button button1 = findViewById(R.id.orderHereButton);
-
-        // Set OnClickListener
         button1.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, OrderPage.class);
             startActivity(intent);
         });
-
-
-        // Find the ImageButton
         Button button2  = findViewById(R.id.currentOrdersButton);
-
-        // Set OnClickListener
         button2.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CurrentOrder.class);
             startActivity(intent);
         });
-
         Button button3  = findViewById(R.id.storeOrdersButton);
-
-        // Set OnClickListener
         button3.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, StoreOrders.class);
             startActivity(intent);
         });
-
-
-
-
+        Button buttonTopping  = findViewById(R.id.topping_button);
+        buttonTopping.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ToppingMenu.class);
+            startActivity(intent);
+        });
     }
-
-
-
 }

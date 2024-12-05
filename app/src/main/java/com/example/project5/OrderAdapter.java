@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-
-
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
     private List<OrderView> orders;
@@ -36,29 +34,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         OrderView order = orders.get(position);
-
         holder.orderDetails.setText(order.getPizzaStringDescription());
         holder.subtotal.setText(String.format(Locale.US, "$%.2f", order.getSubtotal()));
-
         int pizzaPicture = getImage(holder.orderDetails.getText().toString());
         holder.pizzaImage.setImageResource(pizzaPicture);
 
         holder.cancelButton.setOnClickListener(v -> {
-            // Remove order from list
             orders.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, orders.size());
-
-            // Update the singleton data
             PizzaSingleton.getInstance().getPizzas().remove(position);
             PizzaSingleton.getInstance().getPizzasString().remove(position);
-
-            // Notify listener to recalculate totals
             if (updateListener != null) {
                 updateListener.onOrderUpdated();
             }
         });
-
     }
 
     @Override
@@ -84,7 +74,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         TextView orderDetails, subtotal;
         Button cancelButton;
         ImageView pizzaImage;
-
         public OrderViewHolder(View itemView) {
             super(itemView);
             orderDetails = itemView.findViewById(R.id.order_details);

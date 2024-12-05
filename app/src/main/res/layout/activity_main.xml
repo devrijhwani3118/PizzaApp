@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toTopOf="@+id/currentOrdersButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/topping_button" />
 
     <Button
         android:id="@+id/storeOrdersButton"
@@ -44,13 +44,26 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="423dp"
-        android:layout_height="487dp"
-        android:layout_marginBottom="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/orderHereButton"
+        android:layout_width="348dp"
+        android:layout_height="423dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/topping_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/pizza_chef" />
+
+    <Button
+        android:id="@+id/topping_button"
+        android:layout_width="246dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:text="Toppings Menu"
+        app:layout_constraintBottom_toTopOf="@+id/orderHereButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
