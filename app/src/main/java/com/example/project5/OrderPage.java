@@ -34,6 +34,7 @@ public class OrderPage extends AppCompatActivity {
     private final double SEVENTEEN_NINE_NINE=17.99;
     private final double EIGHTEEN_NINE_NINE=18.99;
     private final double TWENTYONE_NINE_NINE=21.99;
+    private final int ZERO=0;
 
     private double pizzaCost = 0;
     private final String[] allToppings = {"Sausage", "Pepperoni", "Green Pepper", "Onion", "Mushroom", "BBQ Chicken", "Provolone", "Cheddar", "Beef", "Ham"};
@@ -255,7 +256,7 @@ public class OrderPage extends AppCompatActivity {
         } else{
             enableAllChips();
             clearAllChipColor();
-            selectedToppingsCount=0;
+            selectedToppingsCount=ZERO;
             setupChipClickListeners();
         }
 
