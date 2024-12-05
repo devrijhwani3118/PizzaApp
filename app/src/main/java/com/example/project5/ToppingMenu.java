@@ -14,6 +14,11 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity to display the topping menu for a pizza order.
+ * Provides a list of available toppings using a RecyclerView.
+ * @author Sri Akshara Kollu, Dev Rijhwani
+ */
 public class ToppingMenu extends AppCompatActivity {
     private RecyclerView toppingsRV;
 
@@ -21,6 +26,10 @@ public class ToppingMenu extends AppCompatActivity {
 
     private ToppingAdapter toppingAdapter ;
 
+    /**
+     * Called when the activity is starting. Sets up the UI and initializes the topping list.
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down, this contains the data it most recently supplied. Otherwise, it is null.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toppings_menu);
@@ -52,7 +61,4 @@ public class ToppingMenu extends AppCompatActivity {
             }
         });
     }
-
-
-
 }

@@ -11,10 +11,22 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
+/**
+ * MainActivity represents the primary screen of the application where users can view the main pizza image
+ * and navigate to different sections like ordering pizza, viewing current orders, store orders, and toppings.
+ * It sets up the UI elements, handles edge-to-edge display, and manages the interactions with various buttons.
+ * @author Sri Akshara Kollu, Dev Rijhwani
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ImageView mainPizzaPicture;
 
+    /**
+     * Initializes the main activity, sets up the user interface, and configures
+     * listeners for button clicks. It also handles edge-to-edge display for the UI.
+     * @param savedInstanceState the saved state of the activity, if any
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
