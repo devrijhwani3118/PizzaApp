@@ -17,9 +17,9 @@
         android:layout_height="27dp"
         android:layout_marginStart="32dp"
         android:layout_marginBottom="16dp"
-        android:text="Price:"
+        android:text="@string/price"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -59,9 +59,9 @@
         android:id="@+id/order_button"
         android:layout_width="190dp"
         android:layout_height="59dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Order"
+        android:text="@string/order_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -71,8 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Back"
-        android:textSize="20dp"
+        android:text="@string/back_button"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -83,6 +83,7 @@
         android:layout_height="195dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/order_page_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/typepizzaChoiceSpinner"
         tools:srcCompat="@tools:sample/avatars" />
@@ -93,8 +94,8 @@
         android:layout_height="38dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="100dp"
-        android:text="crust_type"
-        android:textSize="18dp"
+        android:text="@string/crust_type"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -103,9 +104,9 @@
         android:layout_width="58dp"
         android:layout_height="38dp"
         android:layout_marginTop="28dp"
-        android:text="Crust:"
+        android:text="@string/crust_colon"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/crustTextView"
         app:layout_constraintHorizontal_bias="0.869"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +125,7 @@
             android:id="@+id/smallRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Small"
+            android:text="@string/small"
             tools:layout_editor_absoluteX="12dp"
             tools:layout_editor_absoluteY="236dp" />
 
@@ -132,7 +133,7 @@
             android:id="@+id/mediumRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Medium"
+            android:text="@string/medium"
             tools:layout_editor_absoluteX="12dp"
             tools:layout_editor_absoluteY="284dp" />
 
@@ -140,7 +141,7 @@
             android:id="@+id/largeRadioButton3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Large"
+            android:text="@string/large"
             tools:layout_editor_absoluteX="12dp"
             tools:layout_editor_absoluteY="332dp" />
 
@@ -151,8 +152,8 @@
         android:layout_width="104dp"
         android:layout_height="29dp"
         android:layout_marginBottom="16dp"
-        android:text="price_cost"
-        android:textSize="18dp"
+        android:text="@string/price_cost"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/priceWordTextView" />
 

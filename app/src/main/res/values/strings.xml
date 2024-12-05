@@ -23,5 +23,20 @@
     <string name="order_image">Order image</string>
     <string name="tax">Tax:</string>
     <string name="total_colon">Total:</string>
+    <string name="back_button">Back</string>
+    <string name="clear_order">Clear Order</string>
     <string name="txt">txt</string>
+    <string name="order_number_pound">Order #</string>
+    <string name="pound">#</string>
+    <string name="price">Price:</string>
+    <string name="topping_menu">Toppings Menu</string>
+    <string name="pizza_logo_image">Pizza Logo Image</string>
+    <string name="price_cost">price_cost</string>
+    <string name="order_button">Order</string>
+    <string name="order_page_image">Order Page Image</string>
+    <string name="crust_type">crust_type</string>
+    <string name="crust_colon">Crust:</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
 </resources>
