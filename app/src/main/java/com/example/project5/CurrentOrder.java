@@ -25,6 +25,7 @@ public class CurrentOrder extends AppCompatActivity implements OrderAdapter.Orde
 
     private List<OrderView> currentOrders; // Store current orders locally
     private static final int ZERO = 0;
+    private final double ZERO_DOUBLE=0.0;
     private final int ONE =1;
     private double salesTaxPizzas = ZERO;
     private double totalCostPizzas = ZERO;
@@ -116,7 +117,7 @@ public class CurrentOrder extends AppCompatActivity implements OrderAdapter.Orde
         }
         PizzaSingleton.getInstance().getOrderList().add(order);
         PizzaSingleton.getInstance().getOrderNumberList().add(PizzaSingleton.getInstance().getOrderNumber());
-        PizzaSingleton.getInstance().setOrderNumber(PizzaSingleton.getInstance().getOrderNumber() + 1);
+        PizzaSingleton.getInstance().setOrderNumber(PizzaSingleton.getInstance().getOrderNumber() + ONE);
         PizzaSingleton.getInstance().getOrders().add(new Order(PizzaSingleton.getInstance().getOrderNumber(), PizzaSingleton.getInstance().getPizzas()));
         currentOrders.clear();
         currentOrdersAdapter.notifyDataSetChanged();
@@ -124,7 +125,7 @@ public class CurrentOrder extends AppCompatActivity implements OrderAdapter.Orde
         orderNumberText.setText(String.valueOf(PizzaSingleton.getInstance().getOrderNumber()));
         PizzaSingleton.getInstance().setPizzasString(new ArrayList<>());
         PizzaSingleton.getInstance().setPizzas(new ArrayList<>());
-        PizzaSingleton.setSubtotalPizzas(0.0);
+        PizzaSingleton.setSubtotalPizzas(ZERO_DOUBLE);
         recalculateTotals();
         Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_SHORT).show();
     }

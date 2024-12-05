@@ -28,6 +28,7 @@ public class StoreOrders extends AppCompatActivity {
     private static final int NOT_FOUND = -1;
     private static int orderNumber = 0;
     private final int ZERO=0;
+    private final int ONE=1;
     private final double TAX=0.06625;
 
     @Override
@@ -57,10 +58,10 @@ public class StoreOrders extends AppCompatActivity {
     }
 
     private void calculateTotalCost(ArrayList<String> orderItems) {
-        double subtotalPizzas=0;
+        double subtotalPizzas=ZERO;
         for(int i = 0; i < orderItems.size(); i++) {
             String order=orderItems.get(i);
-            String money=order.substring(order.indexOf("$")+1);
+            String money=order.substring(order.indexOf("$")+ONE);
             subtotalPizzas += Double.parseDouble(money);
         }
         double salesTaxPizzas = subtotalPizzas * TAX;

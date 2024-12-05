@@ -17,6 +17,7 @@ import java.util.List;
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
     private List<OrderView> orders;
+    private final int ZERO=0;
     private OrderUpdateListener updateListener;
 
     public OrderAdapter(List<OrderView> orders, OrderUpdateListener updateListener) {
@@ -53,7 +54,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     @Override
     public int getItemCount() {
-        return orders == null ? 0 : orders.size();
+        return orders == null ? ZERO : orders.size();
     }
 
     private static int getImage(String pizza) {
